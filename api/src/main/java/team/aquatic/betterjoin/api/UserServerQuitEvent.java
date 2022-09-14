@@ -20,7 +20,7 @@ public class UserServerQuitEvent extends Event implements Cancellable {
 		return this.quitMessage;
 	}
 	
-	public void setQuitMessage(@NotNull String quitMessage) {
+	public void setQuitMessage(@Nullable String quitMessage) {
 		this.quitMessage = quitMessage;
 	}
 	

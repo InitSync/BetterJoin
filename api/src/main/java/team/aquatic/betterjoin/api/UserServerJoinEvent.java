@@ -29,7 +29,7 @@ public class UserServerJoinEvent extends Event implements Cancellable {
 		return this.joinMessage;
 	}
 	
-	public void setJoinMessage(@NotNull String joinMessage) {
+	public void setJoinMessage(@Nullable String joinMessage) {
 		this.joinMessage = joinMessage;
 	}
 	
