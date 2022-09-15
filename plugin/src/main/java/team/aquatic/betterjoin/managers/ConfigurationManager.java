@@ -23,10 +23,7 @@ public class ConfigurationManager implements ConfigurationModel {
 		this.fileMap = new HashMap<>();
 		this.configurationMap = new HashMap<>();
 		
-		for (String file : files) {
-			this.load(file);
-			break;
-		}
+		for (String file : files) this.load(file);
 	}
 	
 	@Override
