@@ -1,0 +1,13 @@
+messages:
+  no-permission: "<prefix> &cYou don't have permissions to use that command!"
+  no-command: "<prefix> &cThat command not has been implemented!"
+  no-file: "<prefix> &cThis file doesn't exist!"
+
+  help:
+    - "&cBetterJoin &8| &6Available Commands:"
+    - "&7 - &e/betterjoin help &fShows this message."
+    - "&7 - &e/betterjoin reload &fReload the plugin files."
+
+  reload-all: "<prefix> &aAll Files Reloaded! &fThe plugin files was reloaded successfully!"
+  reload-config: "<prefix> &aConfig Reloaded! &fThe configuration file was reloaded successfully!"
+  reload-messages: "<prefix> &aMessages Reloaded! &fThe messages file was reloaded successfully!"

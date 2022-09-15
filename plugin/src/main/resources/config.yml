@@ -1,0 +1,65 @@
+config:
+  # Plugin prefix
+  prefix: "&c[BetterJoin] &8>"
+
+  sounds:
+    # Play the sounds?
+    play: true
+
+    # Sounds id's.
+    # We are using XSound enums for the sounds.
+    # You can check the enums at their GitHub page.
+    no-perm: ENTITY_ITEM_BREAK
+    reload: UI_BUTTON_CLICK
+
+    # Sounds volume.
+    # The volume level for play the sounds.
+    volume-level: 1
+
+  server:
+    # Allow send the motd when join the player?
+    allow-motd: true
+
+    # Player Motd Message.
+    # You can add special colors as: Solids, Rainbow or Gradients
+    motd:
+      - ""
+      - ""
+      - ""
+      - ""
+      - ""
+
+    # Join/Quit groups.
+    # Note: You may be use LuckPerms for this. Another permissions plugin is not supported!
+    groups:
+      default:
+        # Do you want allows use the plugin feature with this group?
+        allow: true
+
+        # Do you want shows particle forms to join?
+        allow-particles: false
+
+        # Group Join Particles.
+        particles: ""
+
+        # Group Join Message.
+        # You can add special colors as: Solids, Rainbow or Gradients
+        join: "&7<player_name> &8> &7Has joined to &eLobby!"
+
+        # Group Quit Message.
+        # You can add special colors as: Solids, Rainbow or Gradients
+        quit: "&7<player_name> &8> &7If has leave the &cLobby!"
+
+        # Group Join Actions.
+        # You can add special colors for some actions.
+        actions: [ "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
+      administrator:
+        allow: true
+        allow-particles: true
+        particles: ""
+        join: "&c[Administrator] &f<player_name> &8> &7Has joined to &eLobby!"
+        quit: "&c[Administrator] &f<player_name> &8> &7If has leave the &cLobby!"
+        actions:
+          - "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
+          - "TITLE;&c♥ &eWelcome &6<player_name> &eto &fServerName! &c♥;&fInvite to your &aFriends!;20;60;20"
+          - "ACTION_BAR;100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
