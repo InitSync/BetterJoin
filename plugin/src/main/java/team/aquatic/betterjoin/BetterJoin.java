@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.interfaces.CommandInterface;
 import team.aquatic.betterjoin.interfaces.ConfigInterface;
 import team.aquatic.betterjoin.interfaces.ExpansionInterface;
+import team.aquatic.betterjoin.interfaces.LoadersInterface;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
@@ -67,7 +67,7 @@ public final class BetterJoin extends JavaPlugin {
 			LogPrinter.info("Register PlaceholderAPI expansion successfully.");
 		}
 		
-		CommandInterface.newCommand(this)
+		LoadersInterface.newCommand(this)
 			 .name("betterjoin")
 			 .executor(new MainCommand(this))
 			 .completer(new MainCommandTabCompleter())
