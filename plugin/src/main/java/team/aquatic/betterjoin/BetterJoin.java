@@ -5,7 +5,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.interfaces.ConfigHandler;
-import team.aquatic.betterjoin.interfaces.ConfigManager;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
@@ -47,8 +46,8 @@ public final class BetterJoin extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
-		this.configurationManager = ConfigManager.instance(this, "config.yml");
-		this.configuration = ConfigHandler.instance(this.configurationManager);
+		this.configurationManager = ConfigHandler.newInstance(this, "config.yml");
+		this.configuration = ConfigHandler.newInstance(this.configurationManager);
 		
 		LogPrinter.info(
 			 "Started plugin successfully.",
