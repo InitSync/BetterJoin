@@ -15,6 +15,7 @@ repositories {
 	maven("https://papermc.io/repo/repository/maven-public/")
 	maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 	maven("https://jitpack.io/")
+	maven("https://nexus.iridiumdevelopment.net/repository/maven-releases/")
 }
 
 dependencies {
@@ -23,6 +24,7 @@ dependencies {
 	
 	implementation("org.jetbrains:annotations:23.0.0")
 	implementation("com.github.cryptomorin:XSeries:9.0.0")
+	implementation("com.iridium:IridiumColorAPI:1.0.6")
 }
 
 bukkit {
