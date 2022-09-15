@@ -46,7 +46,10 @@ public final class BetterJoin extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
-		this.configurationManager = ConfigInterface.newInstance(this, "config.yml");
+		this.configurationManager = ConfigInterface.newInstance(this,
+			 "config.yml",
+			 "messages.yml"
+		);
 		this.configuration = ConfigInterface.newInstance(this.configurationManager);
 		
 		LogPrinter.info(
