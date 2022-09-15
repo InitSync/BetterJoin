@@ -1,10 +1,15 @@
 package team.aquatic.betterjoin;
 
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import team.aquatic.betterjoin.commands.MainCommand;
+import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
+import team.aquatic.betterjoin.interfaces.CommandInterface;
 import team.aquatic.betterjoin.interfaces.ConfigInterface;
+import team.aquatic.betterjoin.interfaces.ExpansionInterface;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
@@ -12,6 +17,7 @@ public final class BetterJoin extends JavaPlugin {
 	private static BetterJoin instance;
 	
 	private final PluginDescriptionFile descriptionFile = this.getDescription();
+	private final PluginManager pluginManager = this.getServer().getPluginManager();
 	
 	public final String author = String.join("", this.descriptionFile.getAuthors());
 	public final String version = this.descriptionFile.getVersion();
@@ -51,6 +57,21 @@ public final class BetterJoin extends JavaPlugin {
 			 "messages.yml"
 		);
 		this.configuration = ConfigInterface.newInstance(this.configurationManager);
+		
+		if (this.pluginManager
+			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
+			 .isPluginEnabled("PlaceholderAPI")
+		) {
+			ExpansionInterface.newInstance().register();
+			
+			LogPrinter.info("Register PlaceholderAPI expansion successfully.");
+		}
+		
+		CommandInterface.newCommand(this)
+			 .name("betterjoin")
+			 .executor(new MainCommand(this))
+			 .completer(new MainCommandTabCompleter())
+			 .register();
 		
 		LogPrinter.info(
 			 "Started plugin successfully.",
