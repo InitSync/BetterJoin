@@ -5,7 +5,7 @@ import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 
-public interface ConfigHandler {
+public interface ConfigInterface {
 	static Configuration newInstance(@NotNull ConfigurationManager manager) {
 		return new Configuration(manager);
 	}

@@ -4,7 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.handlers.CommandHandlerModel;
 
-public interface CommandHandler {
+public interface CommandInterface {
 	static CommandHandlerModel.Builder newCommand(@NotNull JavaPlugin plugin) {
 		return new CommandHandlerModel.Builder(plugin);
 	}
