@@ -144,8 +144,8 @@ public class ActionModelFactory implements Action {
 		Utils.sendActionBar(
 			 this.plugin,
 			 player,
-			 this.split[0],
-			 Long.parseLong(this.split[1])
+			 this.split[1],
+			 Long.parseLong(this.split[0])
 		);
 	}
 	
