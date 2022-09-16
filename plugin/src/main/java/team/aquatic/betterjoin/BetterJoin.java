@@ -11,9 +11,12 @@ import team.aquatic.betterjoin.interfaces.ActionInterface;
 import team.aquatic.betterjoin.interfaces.ConfigInterface;
 import team.aquatic.betterjoin.interfaces.ExpansionInterface;
 import team.aquatic.betterjoin.interfaces.LoadersInterface;
+import team.aquatic.betterjoin.listeners.PlayerJoinListener;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 import team.aquatic.betterjoin.utils.actions.Action;
+
+import java.util.Collections;
 
 public final class BetterJoin extends JavaPlugin {
 	private static BetterJoin instance;
@@ -84,6 +87,11 @@ public final class BetterJoin extends JavaPlugin {
 			 .name("betterjoin")
 			 .executor(new MainCommand(this))
 			 .completer(new MainCommandTabCompleter())
+			 .register();
+		LoadersInterface.newEvent(this)
+			 .listener(Collections.singletonList(
+					new PlayerJoinListener(this)
+			 ))
 			 .register();
 		
 		LogPrinter.info(
