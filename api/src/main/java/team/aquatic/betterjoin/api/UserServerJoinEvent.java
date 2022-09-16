@@ -6,23 +6,14 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Objects;
-
 public class UserServerJoinEvent extends Event implements Cancellable {
 	private final HandlerList handlers;
-	private final List<String> joinActions;
 	
 	private boolean cancellable;
 	private String joinMessage;
 	
-	public UserServerJoinEvent(@NotNull List<String> joinActions) {
+	public UserServerJoinEvent() {
 		this.handlers = new HandlerList();
-		this.joinActions = Objects.requireNonNull(joinActions, "The join actions list is null.");
-	}
-	
-	public @NotNull List<String> joinActions() {
-		return this.joinActions;
 	}
 	
 	public @Nullable String getJoinMessage() {
