@@ -44,22 +44,22 @@ config:
 
         # Group Join Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        join: "&7<player_name> &8> &7Has joined to &eLobby!"
+        join: "&8[Member]&7<player_name> &8> &7Entered the &eLobby!"
 
         # Group Quit Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        quit: "&7<player_name> &8> &7If has leave the &cLobby!"
+        quit: "&7<player_name> &8> &7He came out of the &cLobby!"
 
         # Group Join Actions.
         # You can add special colors for some actions.
-        actions: [ "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
+        actions: [ "[sound] ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
       administrator:
         allow: true
         allow-particles: true
         particles: ""
-        join: "&c[Administrator] &f<player_name> &8> &7Has joined to &eLobby!"
-        quit: "&c[Administrator] &f<player_name> &8> &7If has leave the &cLobby!"
+        join: "&c[Admin] &f<player_name> &8> &7Entered the &eLobby!"
+        quit: "&c[Admin] &f<player_name> &8> &7He came out of the &cLobby!"
         actions:
-          - "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
-          - "TITLE;&c♥ &eWelcome &6<player_name> &eto &fServerName! &c♥;&fInvite to your &aFriends!;20;60;20"
-          - "ACTION_BAR;100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
+          - "[sound] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
+          - "[title] &c♥ &eWelcome &6<player_name> &eto &fServerName! &c♥;&fInvite to your &aFriends!;20;60;20"
+          - "[actionbar] 100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
