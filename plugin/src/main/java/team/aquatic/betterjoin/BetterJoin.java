@@ -7,11 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
+import team.aquatic.betterjoin.interfaces.ActionInterface;
 import team.aquatic.betterjoin.interfaces.ConfigInterface;
 import team.aquatic.betterjoin.interfaces.ExpansionInterface;
 import team.aquatic.betterjoin.interfaces.LoadersInterface;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
+import team.aquatic.betterjoin.utils.actions.Action;
 
 public final class BetterJoin extends JavaPlugin {
 	private static BetterJoin instance;
@@ -24,6 +26,7 @@ public final class BetterJoin extends JavaPlugin {
 	
 	private ConfigurationManager configurationManager;
 	private Configuration configuration;
+	private Action actionHandler;
 	
 	public static @NotNull BetterJoin instance() {
 		if (instance == null) {
@@ -48,6 +51,14 @@ public final class BetterJoin extends JavaPlugin {
 		return this.configuration;
 	}
 	
+	public @NotNull Action actionHandler() {
+		if (this.actionHandler == null) {
+			throw new IllegalStateException("Failed to get the ActionHandler instance because is"
+				 + " null.");
+		}
+		return this.actionHandler;
+	}
+	
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -64,9 +75,11 @@ public final class BetterJoin extends JavaPlugin {
 		) {
 			ExpansionInterface.newInstance().register();
 			
-			LogPrinter.info("Register PlaceholderAPI expansion successfully.");
+			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
 		}
 		
+		this.actionHandler = ActionInterface.newInstance(this);
+
 		LoadersInterface.newCommand(this)
 			 .name("betterjoin")
 			 .executor(new MainCommand(this))
@@ -90,6 +103,7 @@ public final class BetterJoin extends JavaPlugin {
 			this.configuration = null;
 			this.configurationManager = null;
 		}
+		if (this.actionHandler != null) this.actionHandler = null;
 		if (instance != null) instance = null;
 	}
 }
