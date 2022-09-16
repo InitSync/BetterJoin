@@ -48,7 +48,7 @@ public class Utils {
 		);
 	}
 	
-	public static void sendTitle(
+	public static void sendActionBar(
 		 @NotNull JavaPlugin plugin,
 		 @NotNull Player player,
 		 @NotNull String message,
