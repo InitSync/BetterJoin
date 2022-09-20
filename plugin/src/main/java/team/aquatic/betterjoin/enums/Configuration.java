@@ -1,7 +1,9 @@
 package team.aquatic.betterjoin.enums;
 
 import org.apache.commons.lang.Validate;
+import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.enums.modules.files.FileActionType;
 import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
@@ -117,6 +119,30 @@ public class Configuration {
 					 .getStringList(path);
 		}
 		return Collections.emptyList();
+	}
+	
+	/**
+	 * Returns a configuration section from the specified file type and path.
+	 *
+	 * @param fileType The file type you want to get the section from.
+	 * @param path The path to the section.
+	 * @return A ConfigurationSection object.
+	 */
+	public @Nullable ConfigurationSection section(@NotNull FileType fileType, @NotNull String path) {
+		Objects.requireNonNull(fileType, "The file type is null.");
+		Validate.notEmpty(path, "The path requested is empty.");
+		
+		switch (fileType) {
+			case CONFIG:
+				return this.configurationManager
+					 .file("config.yml")
+					 .getConfigurationSection(path);
+			case MESSAGES:
+				this.configurationManager
+					 .file("messages.yml")
+					 .getConfigurationSection(path);
+		}
+		return null;
 	}
 	
 	/**
