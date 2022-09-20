@@ -1,5 +1,7 @@
 package team.aquatic.betterjoin;
 
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +13,7 @@ import team.aquatic.betterjoin.interfaces.ConfigInterface;
 import team.aquatic.betterjoin.interfaces.ExpansionInterface;
 import team.aquatic.betterjoin.interfaces.LoadersInterface;
 import team.aquatic.betterjoin.listeners.PlayerJoinListener;
+import team.aquatic.betterjoin.listeners.PlayerQuitListener;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
@@ -23,6 +26,7 @@ public final class BetterJoin extends JavaPlugin {
 	public final String author = String.join("", this.descriptionFile.getAuthors());
 	public final String version = this.descriptionFile.getVersion();
 	
+	private LuckPerms luckPerms;
 	private ConfigurationManager configurationManager;
 	private Configuration configuration;
 	
@@ -36,6 +40,18 @@ public final class BetterJoin extends JavaPlugin {
 			throw new IllegalStateException("Cannot access to BetterJoin instance because is disabled!");
 		}
 		return instance;
+	}
+	
+	/**
+	 * If LuckPerms is null, throw an exception. Otherwise, return LuckPerms.
+	 *
+	 * @return LuckPerms instance
+	 */
+	public @NotNull LuckPerms luckPerms() {
+		if (this.luckPerms == null) {
+			throw new IllegalStateException("Cannot access to LuckPerms instance.");
+		}
+		return this.luckPerms;
 	}
 	
 	/**
@@ -68,6 +84,8 @@ public final class BetterJoin extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
+		this.luckPerms = LuckPermsProvider.get();
+		
 		this.configurationManager = ConfigInterface.newManagerInstance(this,
 			 "config.yml",
 			 "messages.yml"
@@ -90,6 +108,8 @@ public final class BetterJoin extends JavaPlugin {
 			 .register();
 		LoadersInterface.newListener(this)
 			 .event(new PlayerJoinListener(this))
+			 .register()
+			 .event(new PlayerQuitListener(this))
 			 .register();
 		
 		LogPrinter.info(
