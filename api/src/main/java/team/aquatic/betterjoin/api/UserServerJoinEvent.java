@@ -16,10 +16,20 @@ public class UserServerJoinEvent extends Event implements Cancellable {
 		this.handlers = new HandlerList();
 	}
 	
+	/**
+	 * `getJoinMessage()` returns the join message of the player
+	 *
+	 * @return A string
+	 */
 	public @Nullable String getJoinMessage() {
 		return this.joinMessage;
 	}
 	
+	/**
+	 * `setJoinMessage` sets the join message
+	 *
+	 * @param joinMessage The message to send when a player joins the server.
+	 */
 	public void setJoinMessage(@Nullable String joinMessage) {
 		this.joinMessage = joinMessage;
 	}

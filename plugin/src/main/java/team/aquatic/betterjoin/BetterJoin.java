@@ -7,16 +7,12 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.interfaces.ActionInterface;
 import team.aquatic.betterjoin.interfaces.ConfigInterface;
 import team.aquatic.betterjoin.interfaces.ExpansionInterface;
 import team.aquatic.betterjoin.interfaces.LoadersInterface;
 import team.aquatic.betterjoin.listeners.PlayerJoinListener;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
-import team.aquatic.betterjoin.utils.actions.Action;
-
-import java.util.Collections;
 
 public final class BetterJoin extends JavaPlugin {
 	private static BetterJoin instance;
@@ -29,8 +25,12 @@ public final class BetterJoin extends JavaPlugin {
 	
 	private ConfigurationManager configurationManager;
 	private Configuration configuration;
-	private Action actionHandler;
 	
+	/**
+	 * If the instance is null, throw an exception
+	 *
+	 * @return The instance of the BetterJoin class.
+	 */
 	public static @NotNull BetterJoin instance() {
 		if (instance == null) {
 			throw new IllegalStateException("Cannot access to BetterJoin instance because is disabled!");
@@ -38,6 +38,11 @@ public final class BetterJoin extends JavaPlugin {
 		return instance;
 	}
 	
+	/**
+	 * If the configurationManager is null, throw an exception, otherwise return the configurationManager.
+	 *
+	 * @return The ConfigurationManager instance.
+	 */
 	public @NotNull ConfigurationManager configurationManager() {
 		if (this.configurationManager == null) {
 			throw new IllegalStateException("Failed to get the ConfigurationManager instance because is"
@@ -46,6 +51,11 @@ public final class BetterJoin extends JavaPlugin {
 		return this.configurationManager;
 	}
 	
+	/**
+	 * If the configuration is null, throw an exception. Otherwise, return the configuration.
+	 *
+	 * @return The Configuration instance.
+	 */
 	public @NotNull Configuration configuration() {
 		if (this.configuration == null) {
 			throw new IllegalStateException("Failed to get the Configuration instance because is"
@@ -54,44 +64,32 @@ public final class BetterJoin extends JavaPlugin {
 		return this.configuration;
 	}
 	
-	public @NotNull Action actionHandler() {
-		if (this.actionHandler == null) {
-			throw new IllegalStateException("Failed to get the ActionHandler instance because is"
-				 + " null.");
-		}
-		return this.actionHandler;
-	}
-	
 	@Override
 	public void onEnable() {
 		instance = this;
 		
-		this.configurationManager = ConfigInterface.newInstance(this,
+		this.configurationManager = ConfigInterface.newManagerInstance(this,
 			 "config.yml",
 			 "messages.yml"
 		);
-		this.configuration = ConfigInterface.newInstance(this.configurationManager);
+		this.configuration = ConfigInterface.newConfigurationInstance(this.configurationManager);
 		
 		if (this.pluginManager
 			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
 			 .isPluginEnabled("PlaceholderAPI")
 		) {
-			ExpansionInterface.newInstance().register();
+			ExpansionInterface.newExpansionInstance().register();
 			
 			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
 		}
 		
-		this.actionHandler = ActionInterface.newInstance(this);
-
 		LoadersInterface.newCommand(this)
 			 .name("betterjoin")
 			 .executor(new MainCommand(this))
 			 .completer(new MainCommandTabCompleter())
 			 .register();
-		LoadersInterface.newEvent(this)
-			 .listener(Collections.singletonList(
-					new PlayerJoinListener(this)
-			 ))
+		LoadersInterface.newListener(this)
+			 .event(new PlayerJoinListener(this))
 			 .register();
 		
 		LogPrinter.info(
@@ -111,7 +109,6 @@ public final class BetterJoin extends JavaPlugin {
 			this.configuration = null;
 			this.configurationManager = null;
 		}
-		if (this.actionHandler != null) this.actionHandler = null;
 		if (instance != null) instance = null;
 	}
 }

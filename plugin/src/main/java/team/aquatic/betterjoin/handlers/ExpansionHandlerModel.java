@@ -12,6 +12,7 @@ public class ExpansionHandlerModel extends PlaceholderExpansion {
 	public boolean canRegister() {
 		return true;
 	}
+	
 	@Override
 	public @NotNull String getIdentifier() {
 		return "betterjoin";

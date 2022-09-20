@@ -16,10 +16,20 @@ public class UserServerQuitEvent extends Event implements Cancellable {
 		this.handlers = new HandlerList();
 	}
 	
+	/**
+	 * Returns the quit message of the player, or null if the player has not quit the server yet.
+	 *
+	 * @return A string
+	 */
 	public @Nullable String getQuitMessage() {
 		return this.quitMessage;
 	}
 	
+	/**
+	 * Sets the quit message of the player.
+	 *
+	 * @param quitMessage The message to send to the player when they quit.
+	 */
 	public void setQuitMessage(@Nullable String quitMessage) {
 		this.quitMessage = quitMessage;
 	}

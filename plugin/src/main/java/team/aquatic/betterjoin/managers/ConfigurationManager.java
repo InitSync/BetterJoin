@@ -4,6 +4,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
@@ -26,6 +27,11 @@ public class ConfigurationManager implements ConfigurationModel {
 		for (String file : files) this.load(file);
 	}
 	
+	/**
+	 * Loads the file with the given name.
+	 *
+	 * @param fileName The name of the file to load.
+	 */
 	@Override
 	public void load(@NotNull String fileName) {
 		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
@@ -42,6 +48,11 @@ public class ConfigurationManager implements ConfigurationModel {
 		YamlConfiguration.loadConfiguration(this.fileMap.get(fileName));
 	}
 	
+	/**
+	 * Reloads the specified file
+	 *
+	 * @param fileName The name of the file to reload.
+	 */
 	@Override
 	public void reload(@NotNull String fileName) {
 		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
@@ -60,6 +71,11 @@ public class ConfigurationManager implements ConfigurationModel {
 		LogPrinter.config("The file to reload doesn't exist: '" + fileName + "'");
 	}
 	
+	/**
+	 * Saves the file with the given name.
+	 *
+	 * @param fileName The name of the file to save the data to.
+	 */
 	@Override
 	public void save(@NotNull String fileName) {
 		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
@@ -78,10 +94,17 @@ public class ConfigurationManager implements ConfigurationModel {
 		LogPrinter.config("The file to save doesn't exist: '" + fileName + "'");
 	}
 	
+	/**
+	 * Returns a FileConfiguration object for the given file name.
+	 *
+	 * @param fileName The name of the file you want to get the FileConfiguration of.
+	 * @return A FileConfiguration object.
+	 */
 	@Override
-	public @NotNull FileConfiguration file(@NotNull String fileName) {
+	public @Nullable FileConfiguration file(@NotNull String fileName) {
 		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
 			LogPrinter.config("Failed to get the file '" + fileName + "' because not exist.");
+			return null;
 		}
 		return this.configurationMap.get(fileName);
 	}
