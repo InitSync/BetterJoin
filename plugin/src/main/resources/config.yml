@@ -17,17 +17,21 @@ config:
     volume-level: 1
 
   server:
+    # Clear the chat messages to join?
+    clear-chat: true
+
     # Allow send the motd when join the player?
     allow-motd: true
 
     # Player Motd Message.
     # You can add special colors as: Solids, Rainbow or Gradients
     motd:
+      - "<GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
       - ""
+      - "&fRemember invite to your &aFriends &fand &ehave fun!"
       - ""
-      - ""
-      - ""
-      - ""
+      - "&7• &9Discord: &ediscord.gg/betterjoin"
+      - "&7• &6Web: &ewww.betterjoin.com"
 
     # Join/Quit groups.
     # Note: You may be use LuckPerms for this. Another permissions plugin is not supported!
