@@ -27,10 +27,7 @@ public class Utils {
 			 .replace("<player_exp>", Integer.toString(player.getTotalExperience()))
 			 .replace("<player_world>", player.getWorld().getName())
 			 .replace("<player_kills>", Integer.toString(player.getStatistic(Statistic.PLAYER_KILLS)))
-			 .replace("<player_server>", player.getServer().getName())
-			 .replace("SOLID", "solid")
-			 .replace("GRADIENT", "gradient")
-			 .replace("RAINBOW", "rainbow");
+			 .replace("<player_server>", player.getServer().getName());
 		
 		return IridiumColorAPI.process(text);
 	}
