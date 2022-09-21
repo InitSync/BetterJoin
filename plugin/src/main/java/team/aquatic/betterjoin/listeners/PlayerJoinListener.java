@@ -55,7 +55,11 @@ public class PlayerJoinListener implements Listener {
 				 FileType.CONFIG,
 				 "config.server.groups." + group + ".allow-particles")
 			) {
-				XParticle.circle(5, 1, ParticleDisplay.display(player.getLocation(), Particle.ENCHANTMENT_TABLE));
+				XParticle.atom(
+					 3, 10, 5,
+					 ParticleDisplay.of(Particle.ENCHANTMENT_TABLE),
+					 ParticleDisplay.of(Particle.CLOUD)
+				);
 			}
 			
 			this.groupManager.executeGroupActions(player);
