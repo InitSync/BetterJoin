@@ -4,7 +4,6 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class UserServerQuitEvent extends Event implements Cancellable {
 	private final HandlerList handlers;
@@ -21,7 +20,7 @@ public class UserServerQuitEvent extends Event implements Cancellable {
 	 *
 	 * @return A string
 	 */
-	public @Nullable String getQuitMessage() {
+	public @NotNull String getQuitMessage() {
 		return this.quitMessage;
 	}
 	
@@ -30,7 +29,7 @@ public class UserServerQuitEvent extends Event implements Cancellable {
 	 *
 	 * @param quitMessage The message to send to the player when they quit.
 	 */
-	public void setQuitMessage(@Nullable String quitMessage) {
+	public void setQuitMessage(@NotNull String quitMessage) {
 		this.quitMessage = quitMessage;
 	}
 	

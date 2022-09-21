@@ -4,7 +4,6 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class UserServerJoinEvent extends Event implements Cancellable {
 	private final HandlerList handlers;
@@ -21,7 +20,7 @@ public class UserServerJoinEvent extends Event implements Cancellable {
 	 *
 	 * @return A string
 	 */
-	public @Nullable String getJoinMessage() {
+	public @NotNull String getJoinMessage() {
 		return this.joinMessage;
 	}
 	
@@ -30,7 +29,7 @@ public class UserServerJoinEvent extends Event implements Cancellable {
 	 *
 	 * @param joinMessage The message to send when a player joins the server.
 	 */
-	public void setJoinMessage(@Nullable String joinMessage) {
+	public void setJoinMessage(@NotNull String joinMessage) {
 		this.joinMessage = joinMessage;
 	}
 	
