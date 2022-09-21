@@ -61,6 +61,10 @@ public class PlayerJoinListener implements Listener {
 	private void sendMotd(@NotNull Player player) {
 		Objects.requireNonNull(player, "The player is null.");
 		
+		if (this.configuration.check(FileType.CONFIG, "config.server.clear-chat")) {
+			for (int i = 0 ; i <= 300 ; i++) player.sendMessage("");
+		}
+		
 		this.configuration
 			 .stringList(FileType.CONFIG, "config.server.motd")
 			 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
