@@ -74,10 +74,11 @@ public class GroupManager {
 			this.configuration
 				 .stringList(FileType.CONFIG, "config.server.groups." + group + ".actions")
 				 .forEach(action -> {
+					 final String actionPrefix = action.split(";")[0];
 					 ActionInterface.newAction(this.plugin)
 							.toPlayer(player)
-							.action(ActionType.valueOf(action.split(";")[0]))
-							.container(action.replace(ActionType.valueOf(action) + ";", ""))
+							.action(ActionType.valueOf(actionPrefix))
+							.container(action.replace(actionPrefix, ""))
 							.make();
 				 });
 		}
