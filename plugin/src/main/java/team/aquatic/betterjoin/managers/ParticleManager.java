@@ -86,5 +86,5 @@ public class ParticleManager {
 	/**
 	 * It removes all particles from the particle system
 	 */
-	public void unregisterAllForms() { this.particles.clear(); }
+	public void unregisterAll() { this.particles.clear(); }
 }
