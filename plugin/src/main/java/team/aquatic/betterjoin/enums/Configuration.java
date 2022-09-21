@@ -4,6 +4,7 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.modules.files.FileActionType;
 import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
@@ -15,8 +16,9 @@ import java.util.Objects;
 public class Configuration {
 	private final ConfigurationManager configurationManager;
 	
-	public Configuration(@NotNull ConfigurationManager configurationManager) {
-		this.configurationManager = Objects.requireNonNull(configurationManager);
+	public Configuration(@NotNull BetterJoin plugin) {
+		this.configurationManager = Objects.requireNonNull(plugin, "BetterJoin instance is null")
+			 .configurationManager();
 	}
 	
 	public void doSomething(@NotNull FileType fileType, @NotNull FileActionType fileActionType) {
