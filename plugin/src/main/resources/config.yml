@@ -37,7 +37,7 @@ config:
         allow: true
 
         # Do you want shows particle forms to join?
-        allow-particles: false
+        allow-particles: true
 
         # Group Join Particles.
         particles: ""
@@ -53,7 +53,7 @@ config:
         # Group Join Actions.
         # You can add special colors for some actions.
         actions: [ "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
-      administrator:
+      admin:
         allow: true
         allow-particles: true
         particles: ""
