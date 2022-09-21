@@ -85,9 +85,9 @@ public class ActionFactoryHandler {
 		
 		private void executeSoundAction() {
 			this.container = this.container.substring(8);
-			this.splitter = this.container.split(";", 3);
+			this.splitter = this.container.split(";");
 			
-			final Optional<XSound> soundOptional = XSound.matchXSound(this.splitter[0]);
+			final Optional<XSound> soundOptional = XSound.matchXSound(this.splitter[1]);
 			if (!soundOptional.isPresent()) {
 				LogPrinter.error("The sound for the action is not present at the container.");
 				return;
@@ -99,8 +99,8 @@ public class ActionFactoryHandler {
 			int volume;
 			int pitch;
 			try {
-				volume = Integer.parseInt(this.splitter[1]);
-				pitch = Integer.parseInt(this.splitter[2]);
+				volume = Integer.parseInt(this.splitter[2]);
+				pitch = Integer.parseInt(this.splitter[3]);
 			} catch (NumberFormatException exception) {
 				LogPrinter.error("Failed to parse the sound action parameters.");
 				
@@ -117,9 +117,9 @@ public class ActionFactoryHandler {
 		
 		private void executeEffectAction() {
 			this.container = this.container.substring(9);
-			this.splitter = this.container.split(";", 3);
+			this.splitter = this.container.split(";");
 			
-			final Optional<XPotion> potionOptional = XPotion.matchXPotion(this.splitter[0]);
+			final Optional<XPotion> potionOptional = XPotion.matchXPotion(this.splitter[1]);
 			if (!potionOptional.isPresent()) {
 				LogPrinter.error("The effect for the action is not present at the container.");
 				return;
@@ -131,8 +131,8 @@ public class ActionFactoryHandler {
 			int duration;
 			int amplifier;
 			try {
-				duration = Integer.parseInt(this.splitter[1]);
-				amplifier = Integer.parseInt(this.splitter[2]);
+				duration = Integer.parseInt(this.splitter[2]);
+				amplifier = Integer.parseInt(this.splitter[3]);
 			} catch (NumberFormatException exception) {
 				LogPrinter.error("Failed to parse the effect action parameters.");
 				
@@ -145,15 +145,15 @@ public class ActionFactoryHandler {
 		
 		private void executeTitleAction() {
 			this.container = this.container.substring(8);
-			this.splitter = container.split(";", 5);
+			this.splitter = container.split(";");
 			
 			int fadeIn;
 			int stay;
 			int fadeOut;
 			try {
-				fadeIn = Integer.parseInt(this.splitter[2]);
-				stay = Integer.parseInt(this.splitter[3]);
-				fadeOut = Integer.parseInt(this.splitter[4]);
+				fadeIn = Integer.parseInt(this.splitter[3]);
+				stay = Integer.parseInt(this.splitter[4]);
+				fadeOut = Integer.parseInt(this.splitter[5]);
 			} catch (NumberFormatException exception) {
 				LogPrinter.error("Failed to parse the title action parameters.");
 				
@@ -163,8 +163,8 @@ public class ActionFactoryHandler {
 			
 			Utils.sendTitle(
 				 player,
-				 this.splitter[0],
 				 this.splitter[1],
+				 this.splitter[2],
 				 fadeIn,
 				 stay,
 				 fadeOut
@@ -173,22 +173,22 @@ public class ActionFactoryHandler {
 		
 		private void executeActionBarAction() {
 			this.container = this.container.substring(12);
-			this.splitter = this.container.split(";", 2);
+			this.splitter = this.container.split(";");
 			
 			Utils.sendActionBar(
 				 this.plugin,
 				 player,
-				 this.splitter[1],
-				 Long.parseLong(this.splitter[0])
+				 this.splitter[2],
+				 Long.parseLong(this.splitter[1])
 			);
 		}
 		
 		private void executeCommandAction() {
 			this.container = this.container.substring(10);
-			this.splitter = this.container.split(";", 2);
-			final String command = IridiumColorAPI.process(this.splitter[0]);
+			this.splitter = this.container.split(";");
+			final String command = IridiumColorAPI.process(this.splitter[1]);
 			
-			if (Boolean.parseBoolean(this.splitter[1])) {
+			if (Boolean.parseBoolean(this.splitter[2])) {
 				this.plugin
 					 .getServer()
 					 .dispatchCommand(
