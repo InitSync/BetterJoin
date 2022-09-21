@@ -39,8 +39,11 @@ config:
         # Do you want shows particle forms to join?
         allow-particles: true
 
-        # Group Join Particles.
-        particles: ""
+        # Group Join Particle type.
+        particle-type: ATOM
+
+        # Parameters of the particle.
+        particle-params: "3;10;5;ENCHANTMENT_TABLE;CLOUD"
 
         # Group Join Message.
         # You can add special colors as: Solids, Rainbow or Gradients
@@ -56,7 +59,8 @@ config:
       admin:
         allow: true
         allow-particles: true
-        particles: ""
+        particle-type: ATOM
+        particle-params: "3;10;5;ENCHANTMENT_TABLE;CLOUD"
         join: "&c[Admin] &f<player_name> &8> &7Entered the &eLobby!"
         quit: "&c[Admin] &f<player_name> &8> &7He came out of the &cLobby!"
         actions:
