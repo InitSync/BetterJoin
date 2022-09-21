@@ -5,7 +5,6 @@ public enum ActionType {
 	EFFECT,
 	TITLE,
 	ACTION_BAR,
-	FIREWORK,
 	COMMAND,
 	BROADCAST,
 	MESSAGE,
