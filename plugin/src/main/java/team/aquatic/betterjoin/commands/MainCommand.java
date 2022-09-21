@@ -58,7 +58,7 @@ public class MainCommand implements CommandExecutor {
 					  .author + " &8| &a" + this.plugin
 					  .version
 			));
-			return true;
+			return false;
 		}
 		
 		switch (args[0]) {
@@ -96,7 +96,7 @@ public class MainCommand implements CommandExecutor {
 		);
 		player.sendMessage(IridiumColorAPI.process(
 			 this.configuration
-				  .string(FileType.MESSAGES, "messages.no-perm")
+				  .string(FileType.MESSAGES, "messages.no-permission")
 				  .replace("<prefix>", this.prefix)
 		));
 	}
@@ -116,7 +116,7 @@ public class MainCommand implements CommandExecutor {
 		);
 		player.sendMessage(IridiumColorAPI.process(
 			 this.configuration
-				  .string(FileType.MESSAGES, "messages.reload-all")
+				  .string(FileType.MESSAGES, "messages.reload")
 				  .replace("<prefix>", this.prefix)
 		));
 	}
