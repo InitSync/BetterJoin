@@ -7,15 +7,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainCommandTabCompleter implements TabCompleter {
 	private final List<String> commandArgs;
-	private final List<String> reloadArgs;
 	
 	public MainCommandTabCompleter() {
 		this.commandArgs = new ArrayList<>();
-		this.reloadArgs = new ArrayList<>();
 	}
 	
 	@Override
@@ -30,30 +29,14 @@ public class MainCommandTabCompleter implements TabCompleter {
 			this.commandArgs.add("reload");
 		}
 		
-		if (this.reloadArgs.isEmpty()) {
-			this.reloadArgs.add("config");
-			this.reloadArgs.add("messages");
-		}
-		
 		final List<String> results = new ArrayList<>();
 		
 		if (args.length == 1) {
 			for (String arg : this.commandArgs) {
-				if (arg.toLowerCase().startsWith(args[0].toLowerCase())) {
-					results.add(arg);
-				}
+				if (arg.toLowerCase().startsWith(args[0].toLowerCase())) results.add(arg);
 			}
 			return results;
 		}
-		
-		if (args[0].equals("reload") && args.length == 2) {
-			for (String arg : this.reloadArgs) {
-				if (arg.toLowerCase().startsWith(args[0].toLowerCase())) {
-					results.add(arg);
-				}
-			}
-			return results;
-		}
-		return null;
+		return Collections.emptyList();
 	}
 }
