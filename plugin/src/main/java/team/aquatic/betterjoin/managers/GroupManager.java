@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.managers;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.enums.modules.actions.ActionType;
@@ -23,7 +24,7 @@ public class GroupManager {
 		this.luckPerms = this.plugin.luckPerms();
 	}
 	
-	public String getPlayerGroup(@NotNull UUID uuid) {
+	public @Nullable String getPlayerGroup(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
 		return this.luckPerms
@@ -32,7 +33,7 @@ public class GroupManager {
 			 .getPrimaryGroup();
 	}
 	
-	public String groupJoinMessage(@NotNull UUID uuid) {
+	public @NotNull String groupJoinMessage(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
 		final String group = this.getPlayerGroup(uuid);
@@ -49,7 +50,7 @@ public class GroupManager {
 		return message;
 	}
 	
-	public String groupQuitMessage(@NotNull UUID uuid) {
+	public @NotNull String groupQuitMessage(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
 		final String group = this.getPlayerGroup(uuid);
