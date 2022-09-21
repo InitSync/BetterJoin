@@ -8,6 +8,4 @@ messages:
     - "&7 - &e/betterjoin help &fShows this message."
     - "&7 - &e/betterjoin reload &fReload the plugin files."
 
-  reload-all: "<prefix> &aAll Files Reloaded! &fThe plugin files was reloaded successfully!"
-  reload-config: "<prefix> &aConfig Reloaded! &fThe configuration file was reloaded successfully!"
-  reload-messages: "<prefix> &aMessages Reloaded! &fThe messages file was reloaded successfully!"
+  reload: "<prefix> &aAll Files Reloaded! &fThe plugin files was reloaded successfully!"
