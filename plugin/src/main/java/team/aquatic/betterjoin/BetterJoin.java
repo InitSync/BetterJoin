@@ -139,7 +139,7 @@ public final class BetterJoin extends JavaPlugin {
 		}
 		if (this.groupManager != null) this.groupManager = null;
 		if (this.particleManager != null) {
-			this.particleManager.unregisterAllForms();
+			this.particleManager.unregisterAll();
 			this.particleManager = null;
 		}
 		if (instance != null) instance = null;
@@ -150,7 +150,7 @@ public final class BetterJoin extends JavaPlugin {
 			 "config.yml",
 			 "messages.yml"
 		);
-		this.configuration = ConfigInterface.newConfigurationInstance(this.configurationManager);
+		this.configuration = ConfigInterface.newConfigurationInstance(this);
 	}
 	
 	private void loadExpansion() {

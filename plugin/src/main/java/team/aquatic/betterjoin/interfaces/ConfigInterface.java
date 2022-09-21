@@ -6,15 +6,9 @@ import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 
 public interface ConfigInterface {
-	/**
-	 * Create a new instance of the Configuration class, passing the ConfigurationManager instance as a
-	 * parameter.
-	 *
-	 * @param manager The ConfigurationManager instance that this configuration is associated with.
-	 * @return A new instance of the Configuration class.
-	 */
-	static Configuration newConfigurationInstance(@NotNull ConfigurationManager manager) {
-		return new Configuration(manager);
+
+	static Configuration newConfigurationInstance(@NotNull BetterJoin plugin) {
+		return new Configuration(plugin);
 	}
 	
 	/**
