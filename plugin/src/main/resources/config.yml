@@ -48,7 +48,7 @@ config:
 
         # Group Quit Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        quit: "&7<player_name> &8> &7He came out of the &cLobby!"
+        quit: "&8[Member] &7<player_name> &8> &7He came out of the &cLobby!"
 
         # Group Join Actions.
         # You can add special colors for some actions.
