@@ -11,10 +11,12 @@ import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.interfaces.ConfigInterface;
 import team.aquatic.betterjoin.interfaces.ExpansionInterface;
+import team.aquatic.betterjoin.interfaces.GroupInterface;
 import team.aquatic.betterjoin.interfaces.LoadersInterface;
 import team.aquatic.betterjoin.listeners.PlayerJoinListener;
 import team.aquatic.betterjoin.listeners.PlayerQuitListener;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
+import team.aquatic.betterjoin.managers.GroupManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
 public final class BetterJoin extends JavaPlugin {
@@ -29,6 +31,7 @@ public final class BetterJoin extends JavaPlugin {
 	private LuckPerms luckPerms;
 	private ConfigurationManager configurationManager;
 	private Configuration configuration;
+	private GroupManager groupManager;
 	
 	/**
 	 * If the instance is null, throw an exception
@@ -80,6 +83,14 @@ public final class BetterJoin extends JavaPlugin {
 		return this.configuration;
 	}
 	
+	public @NotNull GroupManager groupManager() {
+		if (this.groupManager == null) {
+			throw new IllegalStateException("Failed to get the GroupManager instance because is"
+				 + " null.");
+		}
+		return this.groupManager;
+	}
+	
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -91,6 +102,8 @@ public final class BetterJoin extends JavaPlugin {
 			 "messages.yml"
 		);
 		this.configuration = ConfigInterface.newConfigurationInstance(this.configurationManager);
+		
+		this.groupManager = GroupInterface.newManagerInstance(this);
 		
 		if (this.pluginManager
 			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
@@ -129,6 +142,7 @@ public final class BetterJoin extends JavaPlugin {
 			this.configuration = null;
 			this.configurationManager = null;
 		}
+		if (this.groupManager != null) this.groupManager = null;
 		if (instance != null) instance = null;
 	}
 }
