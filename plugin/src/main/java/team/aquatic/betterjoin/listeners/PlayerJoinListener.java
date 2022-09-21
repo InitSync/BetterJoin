@@ -13,40 +13,34 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.api.UserServerJoinEvent;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.enums.modules.actions.ActionType;
 import team.aquatic.betterjoin.enums.modules.files.FileType;
-import team.aquatic.betterjoin.interfaces.ActionInterface;
+import team.aquatic.betterjoin.managers.GroupManager;
 import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class PlayerJoinListener implements Listener {
 	private final BetterJoin plugin;
 	private final Configuration configuration;
-	
-	private String message;
+	private final GroupManager groupManager;
+
 	private String group;
 	
 	public PlayerJoinListener(@NotNull BetterJoin plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "BetterJoin instance is null.");
 		this.configuration = this.plugin.configuration();
+		this.groupManager = this.plugin.groupManager();
 	}
 	
 	@EventHandler (priority = EventPriority.LOW)
 	public void onPlayerJoin(@NotNull PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
+		final UUID uuid = player.getUniqueId();
 		
-		this.group = this.plugin
-			 .luckPerms()
-			 .getUserManager()
-			 .getUser(player.getUniqueId())
-			 .getPrimaryGroup();
+		this.group = this.groupManager.getPlayerGroup(uuid);
 		
-		if (this.configuration.check(FileType.CONFIG, "config.server.allow-motd")) {
-			this.configuration
-				 .stringList(FileType.CONFIG, "config.server.motd")
-				 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
-		}
+		this.sendMotd(player);
 		
 		final UserServerJoinEvent serverJoinEvent = new UserServerJoinEvent();
 		this.plugin
@@ -54,18 +48,8 @@ public class PlayerJoinListener implements Listener {
 			 .getPluginManager()
 			 .callEvent(serverJoinEvent);
 		if (!serverJoinEvent.isCancelled()) {
-			if (this.configuration.section(FileType.CONFIG, "config.server.groups." + group) != null) {
-				this.message = this.configuration.string(
-					 FileType.CONFIG,
-					 "config.server.groups." + group + ".join"
-				);
-			} else {
-				this.message = null;
-				event.setJoinMessage("");
-				return;
-			}
-			
-			event.setJoinMessage(Utils.parse(player, message));
+			serverJoinEvent.setJoinMessage(this.groupManager.groupJoinMessage(uuid));
+			event.setJoinMessage(Utils.parse(player, serverJoinEvent.getJoinMessage()));
 			
 			if (this.configuration.check(
 				 FileType.CONFIG,
@@ -74,16 +58,15 @@ public class PlayerJoinListener implements Listener {
 				XParticle.circle(5, 1, ParticleDisplay.display(player.getLocation(), Particle.ENCHANTMENT_TABLE));
 			}
 			
-			this.configuration
-				 .stringList(FileType.CONFIG,
-						"config.server.groups." + group + ".actions")
-				 .forEach(action -> {
-					 ActionInterface.newAction(this.plugin)
-							.toPlayer(player)
-							.action(ActionType.valueOf(action.split(";")[0]))
-							.container(action.replace(ActionType.valueOf(action) + ";", ""))
-							.make();
-				 });
+			this.groupManager.executeGroupActions(player);
 		}
+	}
+	
+	private void sendMotd(@NotNull Player player) {
+		Objects.requireNonNull(player, "The player is null.");
+		
+		this.configuration
+			 .stringList(FileType.CONFIG, "config.server.motd")
+			 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
 	}
 }
