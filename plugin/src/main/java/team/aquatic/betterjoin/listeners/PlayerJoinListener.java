@@ -1,9 +1,6 @@
 package team.aquatic.betterjoin.listeners;
 
-import com.cryptomorin.xseries.particles.ParticleDisplay;
-import com.cryptomorin.xseries.particles.XParticle;
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,10 +8,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
+import team.aquatic.betterjoin.api.ParticleShowEvent;
 import team.aquatic.betterjoin.api.UserServerJoinEvent;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.managers.GroupManager;
+import team.aquatic.betterjoin.managers.ParticleManager;
 import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
@@ -24,6 +23,7 @@ public class PlayerJoinListener implements Listener {
 	private final BetterJoin plugin;
 	private final Configuration configuration;
 	private final GroupManager groupManager;
+	private final ParticleManager particleManager;
 
 	private String group;
 	
@@ -31,6 +31,7 @@ public class PlayerJoinListener implements Listener {
 		this.plugin = Objects.requireNonNull(plugin, "BetterJoin instance is null.");
 		this.configuration = this.plugin.configuration();
 		this.groupManager = this.plugin.groupManager();
+		this.particleManager = this.plugin.particleManager();
 	}
 	
 	@EventHandler (priority = EventPriority.LOW)
@@ -51,18 +52,9 @@ public class PlayerJoinListener implements Listener {
 			serverJoinEvent.setJoinMessage(this.groupManager.groupJoinMessage(uuid));
 			event.setJoinMessage(Utils.parse(player, serverJoinEvent.getJoinMessage()));
 			
-			if (this.configuration.check(
-				 FileType.CONFIG,
-				 "config.server.groups." + group + ".allow-particles")
-			) {
-				XParticle.atom(
-					 3, 10, 5,
-					 ParticleDisplay.of(Particle.ENCHANTMENT_TABLE),
-					 ParticleDisplay.of(Particle.CLOUD)
-				);
-			}
-			
 			this.groupManager.executeGroupActions(player);
+			
+			this.executeGroupParticles(player);
 		}
 	}
 	
@@ -72,5 +64,33 @@ public class PlayerJoinListener implements Listener {
 		this.configuration
 			 .stringList(FileType.CONFIG, "config.server.motd")
 			 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
+	}
+	
+	private void executeGroupParticles(@NotNull Player player) {
+		final ParticleShowEvent particleShowEvent = new ParticleShowEvent(
+			 player,
+			 this.particleManager
+					.userParticleType(player.getUniqueId())
+					.name()
+		);
+		this.plugin
+			 .getServer()
+			 .getPluginManager()
+			 .callEvent(particleShowEvent);
+		if (!particleShowEvent.isCancelled()) {
+			if (this.configuration.check(
+				 FileType.CONFIG,
+				 "config.server.groups." + group + ".allow-particles")
+			) {
+				this.particleManager
+					 .showForm(
+							player,
+							this.particleManager.userParticleType(player.getUniqueId()),
+							this.configuration.string(
+								 FileType.CONFIG,
+								 "config.server.groups." + group + ".particle-params")
+					 );
+			}
+		}
 	}
 }
