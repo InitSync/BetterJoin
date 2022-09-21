@@ -9,14 +9,12 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.interfaces.ConfigInterface;
-import team.aquatic.betterjoin.interfaces.ExpansionInterface;
-import team.aquatic.betterjoin.interfaces.GroupInterface;
-import team.aquatic.betterjoin.interfaces.LoadersInterface;
+import team.aquatic.betterjoin.interfaces.*;
 import team.aquatic.betterjoin.listeners.PlayerJoinListener;
 import team.aquatic.betterjoin.listeners.PlayerQuitListener;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.managers.GroupManager;
+import team.aquatic.betterjoin.managers.ParticleManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 
 public final class BetterJoin extends JavaPlugin {
@@ -32,6 +30,7 @@ public final class BetterJoin extends JavaPlugin {
 	private ConfigurationManager configurationManager;
 	private Configuration configuration;
 	private GroupManager groupManager;
+	private ParticleManager particleManager;
 	
 	/**
 	 * If the instance is null, throw an exception
@@ -83,6 +82,12 @@ public final class BetterJoin extends JavaPlugin {
 		return this.configuration;
 	}
 	
+	/**
+	 * If the GroupManager instance is null, throw an exception. Otherwise, return the GroupManager
+	 * instance.
+	 *
+	 * @return The GroupManager instance.
+	 */
 	public @NotNull GroupManager groupManager() {
 		if (this.groupManager == null) {
 			throw new IllegalStateException("Failed to get the GroupManager instance because is"
@@ -91,39 +96,29 @@ public final class BetterJoin extends JavaPlugin {
 		return this.groupManager;
 	}
 	
+	/**
+	 * If the particleManager is null, throw an exception, otherwise return the particleManager.
+	 *
+	 * @return The ParticleManager instance.
+	 */
+	public @NotNull ParticleManager particleManager() {
+		if (this.particleManager == null) {
+			throw new IllegalStateException("Failed to get the ParticleManager instance because is"
+				 + " null.");
+		}
+		return this.particleManager;
+	}
+	
 	@Override
 	public void onEnable() {
 		instance = this;
 		
 		this.luckPerms = LuckPermsProvider.get();
-		
-		this.configurationManager = ConfigInterface.newManagerInstance(this,
-			 "config.yml",
-			 "messages.yml"
-		);
-		this.configuration = ConfigInterface.newConfigurationInstance(this.configurationManager);
-		
+		this.loadConfiguration();
 		this.groupManager = GroupInterface.newManagerInstance(this);
-		
-		if (this.pluginManager
-			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
-			 .isPluginEnabled("PlaceholderAPI")
-		) {
-			ExpansionInterface.newExpansionInstance().register();
-			
-			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
-		}
-		
-		LoadersInterface.newCommand(this)
-			 .name("betterjoin")
-			 .executor(new MainCommand(this))
-			 .completer(new MainCommandTabCompleter())
-			 .register();
-		LoadersInterface.newListener(this)
-			 .event(new PlayerJoinListener(this))
-			 .register()
-			 .event(new PlayerQuitListener(this))
-			 .register();
+		this.particleManager = ParticleInterface.newManagerInstance(this);
+		this.loadExpansion();
+		this.loaders();
 		
 		LogPrinter.info(
 			 "Started plugin successfully.",
@@ -143,6 +138,42 @@ public final class BetterJoin extends JavaPlugin {
 			this.configurationManager = null;
 		}
 		if (this.groupManager != null) this.groupManager = null;
+		if (this.particleManager != null) {
+			this.particleManager.unregisterAllForms();
+			this.particleManager = null;
+		}
 		if (instance != null) instance = null;
+	}
+	
+	private void loadConfiguration() {
+		this.configurationManager = ConfigInterface.newManagerInstance(this,
+			 "config.yml",
+			 "messages.yml"
+		);
+		this.configuration = ConfigInterface.newConfigurationInstance(this.configurationManager);
+	}
+	
+	private void loadExpansion() {
+		if (this.pluginManager
+			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
+			 .isPluginEnabled("PlaceholderAPI")
+		) {
+			ExpansionInterface.newExpansionInstance().register();
+			
+			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
+		}
+	}
+	
+	private void loaders() {
+		LoadersInterface.newCommand(this)
+			 .name("betterjoin")
+			 .executor(new MainCommand(this))
+			 .completer(new MainCommandTabCompleter())
+			 .register();
+		LoadersInterface.newListener(this)
+			 .event(new PlayerJoinListener(this))
+			 .register()
+			 .event(new PlayerQuitListener(this))
+			 .register();
 	}
 }
