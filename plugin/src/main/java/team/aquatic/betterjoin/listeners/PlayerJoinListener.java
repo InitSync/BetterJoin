@@ -1,7 +1,6 @@
 package team.aquatic.betterjoin.listeners;
 
 import com.cryptomorin.xseries.ReflectionUtils;
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,6 +12,7 @@ import team.aquatic.betterjoin.api.UserServerJoinEvent;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.managers.GroupManager;
+import team.aquatic.betterjoin.utils.StringUtils;
 import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
@@ -64,6 +64,6 @@ public class PlayerJoinListener implements Listener {
 		
 		this.configuration
 			 .stringList(FileType.CONFIG, "config.server.motd")
-			 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
+			 .forEach(string -> player.sendMessage(StringUtils.centerString(player, string)));
 	}
 }
