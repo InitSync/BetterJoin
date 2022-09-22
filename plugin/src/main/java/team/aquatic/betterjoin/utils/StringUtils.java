@@ -1,12 +1,10 @@
-package org.github.minecube.util;
-
-import lombok.Getter;
+package team.aquatic.betterjoin.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
-
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class StringUtils {
@@ -14,8 +12,10 @@ public class StringUtils {
   private final static StringBuilder MESSAGE = new StringBuilder();
   private final static StringBuilder STRING_BUILDER = new StringBuilder();
   
-	public static String centerString(@NotNull String message) {
-		final String[] lines = IridiumColorAPI.process(message).split("\n", 40);
+	public static String centerString(@NotNull Player player, @NotNull String message) {
+		Objects.requireNonNull(player, "The player is null.");
+		
+		final String[] lines = Utils.parse(player, message).split("\n", 40);
 
 		for (String line : lines) {
 			int messagePxSize = 0;
@@ -35,8 +35,9 @@ public class StringUtils {
 			}
 
 			final int toCompensate = CENTER_MOTD_PX - messagePxSize / 2;
-			final int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
-			final int compensated = 0;
+			
+			int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
+			int compensated = 0;
 			while (compensated < toCompensate) {
 				STRING_BUILDER.append(" ");
 				compensated += spaceLength;
