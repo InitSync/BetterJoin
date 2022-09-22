@@ -59,7 +59,7 @@ config:
 
         # Group Join Actions.
         # You can add special colors for some actions.
-        actions: [ "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
+        actions: [ "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
       admin:
         allow: true
         allow-particles: true
@@ -68,6 +68,6 @@ config:
         join: "&c[Admin] &f<player_name> &8> &7Entered the &eLobby!"
         quit: "&c[Admin] &f<player_name> &8> &7He came out of the &cLobby!"
         actions:
-          - "SOUND;ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
-          - "TITLE;&c♥ &eWelcome &6<player_name> &eto &fServerName! &c♥;&fInvite to your &aFriends!;20;60;20"
-          - "ACTION_BAR;100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
+          - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
+          - "[TITLE] &c♥ &eWelcome &6<player_name> &eto &fServerName! &c♥;&fInvite to your &aFriends!;20;60;20"
+          - "[ACTION_BAR] 100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
