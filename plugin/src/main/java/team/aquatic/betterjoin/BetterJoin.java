@@ -1,5 +1,6 @@
 package team.aquatic.betterjoin;
 
+import com.cryptomorin.xseries.ReflectionUtils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -9,13 +10,16 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
+import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.interfaces.*;
 import team.aquatic.betterjoin.listeners.PlayerJoinListener;
 import team.aquatic.betterjoin.listeners.PlayerQuitListener;
+import team.aquatic.betterjoin.managers.ActionManager;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.managers.GroupManager;
 import team.aquatic.betterjoin.managers.ParticleManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
+import team.aquatic.betterjoin.utils.Utils;
 
 public final class BetterJoin extends JavaPlugin {
 	private static BetterJoin instance;
@@ -31,6 +35,7 @@ public final class BetterJoin extends JavaPlugin {
 	private Configuration configuration;
 	private GroupManager groupManager;
 	private ParticleManager particleManager;
+	private ActionManager actionManager;
 	
 	/**
 	 * If the instance is null, throw an exception
@@ -109,14 +114,33 @@ public final class BetterJoin extends JavaPlugin {
 		return this.particleManager;
 	}
 	
+	/**
+	 * If the actionManager is null, throw an exception. Otherwise, return the actionManager.
+	 *
+	 * @return The ActionManager instance.
+	 */
+	public @NotNull ActionManager actionManager() {
+		if (this.actionManager == null) {
+			throw new IllegalStateException("Failed to get the ActionManager instance because the "
+				 + "plugin instance is null.");
+		}
+		return this.actionManager;
+	}
+	
 	@Override
 	public void onEnable() {
 		instance = this;
 		
 		this.luckPerms = LuckPermsProvider.get();
 		this.loadConfiguration();
-		this.groupManager = GroupInterface.newManagerInstance(this);
+		if (ReflectionUtils.supports(13) && this.configuration.check(
+			 FileType.CONFIG,
+			 "config.server.allow-particles")
+		) {
+			this.groupManager = GroupInterface.newManagerInstance(this);
+		}
 		this.particleManager = ParticleInterface.newManagerInstance(this);
+		this.actionManager = ActionInterface.newManagerInstance(this);
 		this.loadExpansion();
 		this.loaders();
 		
@@ -142,6 +166,10 @@ public final class BetterJoin extends JavaPlugin {
 			this.particleManager.unregisterAll();
 			this.particleManager = null;
 		}
+		if (this.actionManager != null) {
+			this.actionManager.unregisterAll();
+			this.actionManager = null;
+		}
 		if (instance != null) instance = null;
 	}
 	
@@ -158,6 +186,7 @@ public final class BetterJoin extends JavaPlugin {
 			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
 			 .isPluginEnabled("PlaceholderAPI")
 		) {
+			Utils.papiIsAvailable = true;
 			ExpansionInterface.newExpansionInstance().register();
 			
 			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
