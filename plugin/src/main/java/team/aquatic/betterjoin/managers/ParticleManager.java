@@ -1,5 +1,6 @@
 package team.aquatic.betterjoin.managers;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,10 +46,18 @@ public class ParticleManager {
 	 * It takes an array of ParticleExecutable objects and adds them to the particles HashMap
 	 */
 	private void registerParticles(@NotNull ParticleExecutable... particleExecutables) {
-		Arrays.asList(particleExecutables)
-			 .forEach(particle -> {
-				 this.particles.put(particle.formType(), particle);
-			 });
+		Arrays.asList(particleExecutables).forEach(this::registerParticle);
+	}
+	
+	/**
+	 * It takes a particle executable and puts it into a map with the form type as the key
+	 *
+	 * @param particleExecutable The particle executable to register.
+	 */
+	private void registerParticle(@NotNull ParticleExecutable particleExecutable) {
+		Objects.requireNonNull(particleExecutable, "The particle executable implementation is null.");
+		
+		this.particles.put(particleExecutable.formType(), particleExecutable);
 	}
 	
 	/**
@@ -78,6 +87,10 @@ public class ParticleManager {
 	 * @param params The parameters that the player entered.
 	 */
 	public void showForm(@NotNull Player player, @NotNull ParticleType type, @NotNull String params) {
+		Objects.requireNonNull(player, "The player is null.");
+		Objects.requireNonNull(type, "The particle type is null.");
+		Validate.notEmpty(params, "The params is empty.");
+		
 		this.particles
 			 .get(type)
 			 .showForm(this.plugin, player, params);
