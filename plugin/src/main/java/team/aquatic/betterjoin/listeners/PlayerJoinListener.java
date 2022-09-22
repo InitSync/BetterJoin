@@ -1,5 +1,6 @@
 package team.aquatic.betterjoin.listeners;
 
+import com.cryptomorin.xseries.ReflectionUtils;
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,7 +46,12 @@ public class PlayerJoinListener implements Listener {
 			event.setJoinMessage(Utils.parse(player, serverJoinEvent.getJoinMessage()));
 			
 			this.groupManager.executeGroupActions(player);
-			this.groupManager.executeGroupParticles(player);
+			if (ReflectionUtils.supports(13) && this.configuration.check(
+				 FileType.CONFIG,
+				 "config.server.allow-particles")
+			) {
+				this.groupManager.executeGroupParticles(player);
+			}
 		}
 	}
 	
