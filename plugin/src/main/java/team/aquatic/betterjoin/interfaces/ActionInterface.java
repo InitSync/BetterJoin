@@ -2,17 +2,16 @@ package team.aquatic.betterjoin.interfaces;
 
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
-import team.aquatic.betterjoin.handlers.ActionFactoryHandler;
+import team.aquatic.betterjoin.managers.ActionManager;
 
 public interface ActionInterface {
 	/**
-	 * It creates a new ActionFactoryHandler.Builder object, which is used to create a new
-	 * ActionFactoryHandler object
+	 * This function returns a new instance of the ActionManager class.
 	 *
 	 * @param plugin The plugin instance.
-	 * @return A new ActionFactoryHandler.Builder object.
+	 * @return A new instance of the ActionManager class.
 	 */
-	static ActionFactoryHandler.Builder newAction(@NotNull BetterJoin plugin) {
-		return new ActionFactoryHandler.Builder(plugin);
+	static ActionManager newManagerInstance(@NotNull BetterJoin plugin) {
+		return new ActionManager(plugin);
 	}
 }
