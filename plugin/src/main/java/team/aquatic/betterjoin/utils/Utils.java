@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.utils;
 import com.cryptomorin.xseries.messages.ActionBar;
 import com.cryptomorin.xseries.messages.Titles;
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -12,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class Utils {
+	public static boolean papiIsAvailable;
+	
 	/**
 	 * It replaces all the variables in the text with the player's information
 	 *
@@ -21,6 +24,8 @@ public class Utils {
 	 */
 	public static String parse(@NotNull Player player, @NotNull String text) {
 		Objects.requireNonNull(player, "Player is null.");
+		
+		if (papiIsAvailable) text = PlaceholderAPI.setPlaceholders(player, text);
 		
 		text = text.replace("<player_name>", player.getName())
 			 .replace("<player_level>", Integer.toString(player.getLevel()))
