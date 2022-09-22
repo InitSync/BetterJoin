@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
@@ -102,14 +103,15 @@ public final class BetterJoin extends JavaPlugin {
 	}
 	
 	/**
-	 * If the particleManager is null, throw an exception, otherwise return the particleManager.
+	 * If the particleManager is null, send a log and returns null, otherwise return the particleManager.
 	 *
 	 * @return The ParticleManager instance.
 	 */
-	public @NotNull ParticleManager particleManager() {
+	public @Nullable ParticleManager particleManager() {
 		if (this.particleManager == null) {
-			throw new IllegalStateException("Failed to get the ParticleManager instance because is"
-				 + " null.");
+			LogPrinter.info("The ParticleManager instance is null because the plugin "
+				+ "is running a version minor than 1.13, or the feature is disabled.");
+			return null;
 		}
 		return this.particleManager;
 	}
@@ -133,13 +135,13 @@ public final class BetterJoin extends JavaPlugin {
 		
 		this.luckPerms = LuckPermsProvider.get();
 		this.loadConfiguration();
+		this.groupManager = GroupInterface.newManagerInstance(this);
 		if (ReflectionUtils.supports(13) && this.configuration.check(
 			 FileType.CONFIG,
 			 "config.server.allow-particles")
 		) {
-			this.groupManager = GroupInterface.newManagerInstance(this);
+			this.particleManager = ParticleInterface.newManagerInstance(this);
 		}
-		this.particleManager = ParticleInterface.newManagerInstance(this);
 		this.actionManager = ActionInterface.newManagerInstance(this);
 		this.loadExpansion();
 		this.loaders();
