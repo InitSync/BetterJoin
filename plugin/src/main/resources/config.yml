@@ -20,6 +20,10 @@ config:
     # Clear the chat messages to join?
     clear-chat: true
 
+    # Allow show particles to join?
+    # NOTE: This feature requires Minecraft 1.13 or above.
+    allow-particles: false
+
     # Allow send the motd when join the player?
     allow-motd: true
 
@@ -40,9 +44,6 @@ config:
         # Do you want allows use the plugin feature with this group?
         allow: true
 
-        # Do you want shows particle forms to join?
-        allow-particles: true
-
         # Group Join Particle type.
         particle-type: ATOM
 
@@ -62,7 +63,6 @@ config:
         actions: [ "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
       admin:
         allow: true
-        allow-particles: true
         particle-type: ATOM
         particle-params: "3;10;5;ENCHANTMENT_TABLE;CLOUD"
         join: "&c[Admin] &f<player_name> &8> &7Entered the &eLobby!"
