@@ -77,7 +77,7 @@ public class MainCommand implements CommandExecutor {
 				} else this.notPermission(player);
 				break;
 			case "reload":
-				if (player.hasPermission(PermissionType.HELP_CMD.getPerm())) this.reload(player);
+				if (player.hasPermission(PermissionType.RELOAD_CMD.getPerm())) this.reload(player);
 				else this.notPermission(player);
 				break;
 		}

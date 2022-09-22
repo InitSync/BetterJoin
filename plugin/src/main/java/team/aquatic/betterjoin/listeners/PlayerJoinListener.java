@@ -64,6 +64,9 @@ public class PlayerJoinListener implements Listener {
 		
 		this.configuration
 			 .stringList(FileType.CONFIG, "config.server.motd")
-			 .forEach(string -> player.sendMessage(StringUtils.centerString(player, string)));
+			 .forEach(string -> {
+				 string = StringUtils.centerString(player, string);
+				 player.sendMessage(string);
+			 });
 	}
 }

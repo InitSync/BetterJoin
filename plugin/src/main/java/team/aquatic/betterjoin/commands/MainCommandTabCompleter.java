@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +25,8 @@ public class MainCommandTabCompleter implements TabCompleter {
 		 @NotNull String alias,
 		 @NotNull String[] args
 	) {
+		if (!(sender instanceof Player)) return Collections.emptyList();
+		
 		if (this.commandArgs.isEmpty()) {
 			this.commandArgs.add("help");
 			this.commandArgs.add("reload");

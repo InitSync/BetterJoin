@@ -65,9 +65,9 @@ config:
         allow: true
         particle-type: ATOM
         particle-params: "3;10;5;ENCHANTMENT_TABLE;CLOUD"
-        join: "&c[Admin] &f<player_name> &8> &7Entered the &eLobby!"
-        quit: "&c[Admin] &f<player_name> &8> &7He came out of the &cLobby!"
+        join: "&c ♫ [♥ Admin] &f<player_name> &8> &7Entered the &eLobby!"
+        quit: "&c ♫ [♥ Admin] &f<player_name> &8> &7He came out of the &cLobby!"
         actions:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
-          - "[TITLE] &c♥ &eWelcome &6<player_name> &eto &fServerName! &c♥;&fInvite to your &aFriends!;20;60;20"
+          - "[TITLE] &eWelcome &6<player_name> &eto &fServerName!;&fInvite to your &aFriends!;20;60;20"
           - "[ACTION_BAR] 100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
