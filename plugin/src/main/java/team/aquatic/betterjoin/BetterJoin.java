@@ -109,8 +109,10 @@ public final class BetterJoin extends JavaPlugin {
 	 */
 	public @Nullable ParticleManager particleManager() {
 		if (this.particleManager == null) {
-			LogPrinter.info("The ParticleManager instance is null because the plugin "
-				+ "is running a version minor than 1.13, or the feature is disabled.");
+			LogPrinter.info(
+				 "The ParticleManager is disabled.",
+				 "If you want use it, uses Minecraft 1.13 or above."
+			);
 			return null;
 		}
 		return this.particleManager;
