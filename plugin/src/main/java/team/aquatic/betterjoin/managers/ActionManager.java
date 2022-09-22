@@ -71,12 +71,12 @@ public class ActionManager {
 				 ActionType.valueOf(actionPrefix.toUpperCase())
 			);
 			
-			container = container.contains(" ")
-				 ? container.split(" ", 2)[1]
-				 : "";
-			container = Utils.parse(player, container);
-			
-			executable.executeAction(this.plugin, player, container);
+			executable.executeAction(this.plugin, player,
+				 Utils.parse(player, container.contains(" ")
+				    ? container.split(" ", 2)[1]
+					  : ""
+				 )
+			);
 		});
 	}
 	
