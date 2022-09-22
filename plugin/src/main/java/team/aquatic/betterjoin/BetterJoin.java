@@ -115,7 +115,7 @@ public final class BetterJoin extends JavaPlugin {
 	}
 	
 	/**
-	 * If the actionManager is null, throw an exception. Otherwise, return the actionManager.
+	 * If the actionManager is null, throw an exception. Otherwise, return the actionManager
 	 *
 	 * @return The ActionManager instance.
 	 */
