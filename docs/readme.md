@@ -2,12 +2,12 @@
  <div align="center">
  💫 ~ BetterJoin | Amazing Join Plugin ~ 💫
   <p align="center"> 
-    • An amazing plugin to customize the entry/left of your server/lobby!
+    • An amazing plugin to customize the entry/left of your lobby!
     <br />
     <br />
     <a href="https://discord.io/aquaticstudios">Support</a>
     ·
-    <a href="https://app.gitbook.com/o/NJJfo0ObAjo9gPYls1mb/s/d3IP45jg5gbVYUUOdBiC/">Wiki</a>
+    <a href="https://app.gitbook.com/o/NJJfo0ObAjo9gPYls1mb/s/M5AxtQDBGx3CEtj8V4eE/">Wiki</a>
     ·
     <a href="https://www.spigotmc.org/resources/034123123">SpigotMC</a>
   
