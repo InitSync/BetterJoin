@@ -138,7 +138,7 @@ public final class BetterJoin extends JavaPlugin {
 		this.luckPerms = LuckPermsProvider.get();
 		this.loadConfiguration();
 		this.groupManager = GroupInterface.newManagerInstance(this);
-		if (ReflectionUtils.supports(13) && this.configuration.check(
+		if (ReflectionUtils.supports(9) && this.configuration.check(
 			 FileType.CONFIG,
 			 "config.server.allow-particles")
 		) {
