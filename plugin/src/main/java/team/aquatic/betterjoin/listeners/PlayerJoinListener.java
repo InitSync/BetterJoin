@@ -9,13 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
-import team.aquatic.betterjoin.api.UserServerJoinEvent;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.managers.GroupManager;
 import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class PlayerJoinListener implements Listener {
 	private final BetterJoin plugin;
@@ -31,24 +29,14 @@ public class PlayerJoinListener implements Listener {
 	@EventHandler (priority = EventPriority.LOW)
 	public void onPlayerJoin(@NotNull PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
-		final UUID uuid = player.getUniqueId();
-		
+	
 		this.sendMotd(player);
-		
-		final UserServerJoinEvent serverJoinEvent = new UserServerJoinEvent();
-		this.plugin
-			 .getServer()
-			 .getPluginManager()
-			 .callEvent(serverJoinEvent);
-		if (!serverJoinEvent.isCancelled()) {
-			serverJoinEvent.setJoinMessage(this.groupManager.groupJoinMessage(uuid));
-			event.setJoinMessage(Utils.parse(player, serverJoinEvent.getJoinMessage()));
-			
-			this.groupManager.executeGroupActions(player);
-			if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
-				this.groupManager.executeGroupParticles(player);
-			}
+		this.groupManager.executeGroupActions(player);
+		if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
+			this.groupManager.executeGroupParticles(player);
 		}
+		
+		event.setJoinMessage(Utils.parse(player, this.groupManager.groupJoinMessage(player.getUniqueId())));
 	}
 	
 	private void sendMotd(@NotNull Player player) {
