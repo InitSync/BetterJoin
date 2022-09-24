@@ -55,7 +55,7 @@ public class ConfigurationManager implements ConfigurationModel {
 	 */
 	@Override
 	public void reload(@NotNull String fileName) {
-		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
+		if (this.fileMap.containsKey(fileName) && this.configurationMap.containsKey(fileName)) {
 			try {
 				this.configurationMap
 					 .get(fileName)
@@ -78,7 +78,7 @@ public class ConfigurationManager implements ConfigurationModel {
 	 */
 	@Override
 	public void save(@NotNull String fileName) {
-		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
+		if (this.fileMap.containsKey(fileName) && this.configurationMap.containsKey(fileName)) {
 			try {
 				this.configurationMap
 					 .get(fileName)
