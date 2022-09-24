@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.api.UserServerJoinEvent;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.managers.GroupManager;
 import team.aquatic.betterjoin.utils.Utils;
 
@@ -46,10 +45,7 @@ public class PlayerJoinListener implements Listener {
 			event.setJoinMessage(Utils.parse(player, serverJoinEvent.getJoinMessage()));
 			
 			this.groupManager.executeGroupActions(player);
-			if (ReflectionUtils.supports(9) && this.configuration.check(
-				 FileType.CONFIG,
-				 "config.server.allow-particles")
-			) {
+			if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
 				this.groupManager.executeGroupParticles(player);
 			}
 		}
@@ -58,12 +54,12 @@ public class PlayerJoinListener implements Listener {
 	private void sendMotd(@NotNull Player player) {
 		Objects.requireNonNull(player, "The player is null.");
 		
-		if (this.configuration.check(FileType.CONFIG, "config.server.clear-chat")) {
+		if (this.configuration.check("config.server.clear-chat")) {
 			for (int i = 0 ; i <= 300 ; i++) player.sendMessage("");
 		}
 		
 		this.configuration
-			 .stringList(FileType.CONFIG, "config.server.motd")
+			 .stringList("config.server.motd")
 			 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
 	}
 }
