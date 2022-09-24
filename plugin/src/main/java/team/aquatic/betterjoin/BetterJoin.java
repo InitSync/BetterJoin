@@ -110,7 +110,7 @@ public final class BetterJoin extends JavaPlugin {
 		if (this.particleManager == null) {
 			LogPrinter.info(
 				 "The ParticleManager is disabled.",
-				 "If you want use it, uses Minecraft 1.13 or above."
+				 "If you want use it, uses Minecraft 1.9 or above."
 			);
 			return null;
 		}
