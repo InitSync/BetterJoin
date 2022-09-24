@@ -7,12 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
-import team.aquatic.betterjoin.api.UserServerQuitEvent;
 import team.aquatic.betterjoin.managers.GroupManager;
 import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class PlayerQuitListener implements Listener {
 	private final BetterJoin plugin;
@@ -26,16 +24,9 @@ public class PlayerQuitListener implements Listener {
 	@EventHandler (priority = EventPriority.LOW)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		final Player player = event.getPlayer();
-		final UUID uuid = player.getUniqueId();
 		
-		final UserServerQuitEvent serverQuitEvent = new UserServerQuitEvent();
-		this.plugin
-			 .getServer()
-			 .getPluginManager()
-			 .callEvent(serverQuitEvent);
-		if (!serverQuitEvent.isCancelled()) {
-			serverQuitEvent.setQuitMessage(this.groupManager.groupQuitMessage(uuid));
-			event.setQuitMessage(Utils.parse(player, serverQuitEvent.getQuitMessage()));
-		}
+		event.setQuitMessage(Utils.parse(player,
+			 this.groupManager.groupQuitMessage(player.getUniqueId())
+		));
 	}
 }
