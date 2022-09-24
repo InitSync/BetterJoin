@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.enums.modules.files.FileActionType;
-import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.enums.modules.permissions.PermissionType;
 
 import java.util.Objects;
@@ -27,15 +26,13 @@ public class MainCommand implements CommandExecutor {
 	public MainCommand(@NotNull BetterJoin plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "BetterJoin instance is null.");
 		this.configuration = this.plugin.configuration();
-		this.permSound = XSound.matchXSound(this.configuration.string(
-			 FileType.CONFIG,
-			 "config.sounds.no-perm")
-		).get().parseSound();
-		this.reloadSound = XSound.matchXSound(this.configuration.string(
-			 FileType.CONFIG,
-			 "config.sounds.reload")
-		).get().parseSound();
-		this.prefix = this.configuration.string(FileType.CONFIG, "config.prefix");
+		this.permSound = XSound.matchXSound(this.configuration.string("config.sounds.no-perm"))
+			 .get()
+			 .parseSound();
+		this.reloadSound = XSound.matchXSound(this.configuration.string("config.sounds.reload"))
+			 .get()
+			 .parseSound();
+		this.prefix = this.configuration.string("config.prefix");
 	}
 	
 	@Override
@@ -51,13 +48,13 @@ public class MainCommand implements CommandExecutor {
 		
 		if (args.length == 0) {
 			player.sendMessage(IridiumColorAPI.process(
-				 this.prefix + "&f Running at &8(&b" + Bukkit.getBukkitVersion() + "&8)"
-			));
+				 "<prefix> &f Running at &8(&b" + Bukkit.getBukkitVersion() + "&8)"
+			).replace("<prefix>", this.prefix));
 			player.sendMessage(IridiumColorAPI.process(
-				 this.prefix + "&f Developed by &b" + this.plugin
+				 "<prefix> &f Developed by &b" + this.plugin
 					  .author + " &8| &a" + this.plugin
 					  .version
-			));
+			).replace("<prefix>", this.prefix));
 			return false;
 		}
 		
@@ -65,15 +62,18 @@ public class MainCommand implements CommandExecutor {
 			default:
 				player.sendMessage(IridiumColorAPI.process(
 					 this.configuration
-						  .string(FileType.MESSAGES, "messages.no-command")
+						  .string("messages.no-command")
 						  .replace("<prefix>", this.prefix)
 				));
 				break;
 			case "help":
 				if (player.hasPermission(PermissionType.HELP_CMD.getPerm())) {
 					this.configuration
-						 .stringList(FileType.MESSAGES, "messages.help")
-						 .forEach(string -> sender.sendMessage(IridiumColorAPI.process(string)));
+						 .stringList("messages.help")
+						 .forEach(string -> {
+							 sender.sendMessage(IridiumColorAPI.process(string)
+								  .replace("<prefix>", this.prefix));
+						 });
 				} else this.notPermission(player);
 				break;
 			case "reload":
@@ -87,7 +87,7 @@ public class MainCommand implements CommandExecutor {
 	private void notPermission(@NotNull Player player) {
 		Objects.requireNonNull(player, "The player is null.");
 		
-		final int volume = this.configuration.integer(FileType.CONFIG, "config.sounds.volume-level");
+		final int volume = this.configuration.integer("config.sounds.volume-level");
 		
 		player.playSound(
 			 player.getLocation(),
@@ -96,7 +96,7 @@ public class MainCommand implements CommandExecutor {
 		);
 		player.sendMessage(IridiumColorAPI.process(
 			 this.configuration
-				  .string(FileType.MESSAGES, "messages.no-permission")
+				  .string("messages.no-permission")
 				  .replace("<prefix>", this.prefix)
 		));
 	}
@@ -104,10 +104,9 @@ public class MainCommand implements CommandExecutor {
 	private void reload(@NotNull Player player) {
 		Objects.requireNonNull(player, "The player is null.");
 		
-		this.configuration.doSomething(FileType.CONFIG, FileActionType.RELOAD);
-		this.configuration.doSomething(FileType.MESSAGES, FileActionType.RELOAD);
+		this.configuration.doSomething(FileActionType.RELOAD);
 		
-		final int volume = this.configuration.integer(FileType.CONFIG, "config.sounds.volume-level");
+		final int volume = this.configuration.integer("config.sounds.volume-level");
 		
 		player.playSound(
 			 player.getLocation(),
@@ -116,7 +115,7 @@ public class MainCommand implements CommandExecutor {
 		);
 		player.sendMessage(IridiumColorAPI.process(
 			 this.configuration
-				  .string(FileType.MESSAGES, "messages.reload")
+				  .string("messages.reload")
 				  .replace("<prefix>", this.prefix)
 		));
 	}
