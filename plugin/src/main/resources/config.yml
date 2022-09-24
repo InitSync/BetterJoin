@@ -21,7 +21,7 @@ config:
     clear-chat: true
 
     # Allow show particles to join?
-    # NOTE: This feature requires Minecraft 1.13 or above.
+    # NOTE: This feature requires Minecraft 1.9 or above.
     allow-particles: false
 
     # Allow send the motd when join the player?
@@ -30,12 +30,13 @@ config:
     # Player Motd Message.
     # You can add special colors as: Solids, Rainbow or Gradients
     motd:
-      - "<GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
+      - "       <GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
       - ""
-      - "&fRemember invite to your &aFriends &fand &ehave fun!"
+      - "       &fRemember invite to your &aFriends &fand &ehave fun!"
       - ""
-      - "&7• &9Discord: &ediscord.gg/betterjoin"
-      - "&7• &6Web: &ewww.betterjoin.com"
+      - "&7• &9Discord: &ediscord.gg/yourServer"
+      - "&7• &6Web: &ewww.yourServer.com"
+      - "&7• &aStore: &estore.yourServer.com"
 
     # Join/Quit groups.
     # Note: You may be use LuckPerms for this. Another permissions plugin is not supported!
@@ -69,5 +70,5 @@ config:
         quit: "&c ♫ [♥ Admin] &f<player_name> &8> &7He came out of the &cLobby!"
         actions:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
-          - "[TITLE] &eWelcome &6<player_name> &eto &fServerName!;&fInvite to your &aFriends!;20;60;20"
+          - "[TITLE] &eWelcome &6<player_name>!;&aHave fun!;20;60;20"
           - "[ACTION_BAR] 100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
