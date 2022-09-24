@@ -7,7 +7,6 @@ import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.api.ParticleShowEvent;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.enums.modules.files.FileType;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -40,10 +39,8 @@ public class GroupManager {
 		final String group = this.getPlayerGroup(uuid);
 		
 		String message;
-		if (this.configuration.section(FileType.CONFIG, "config.server.groups." + group) != null) {
-			message = this.configuration.string(
-				 FileType.CONFIG,
-				 "config.server.groups." + group + ".join");
+		if (this.configuration.section("config.server.groups." + group) != null) {
+			message = this.configuration.string("config.server.groups." + group + ".join");
 			return message;
 		}
 		
@@ -57,10 +54,8 @@ public class GroupManager {
 		final String group = this.getPlayerGroup(uuid);
 		
 		String message;
-		if (this.configuration.section(FileType.CONFIG, "config.server.groups." + group) != null) {
-			message = this.configuration.string(
-				 FileType.CONFIG,
-				 "config.server.groups." + group + ".quit");
+		if (this.configuration.section("config.server.groups." + group) != null) {
+			message = this.configuration.string("config.server.groups." + group + ".quit");
 			return message;
 		}
 		
@@ -72,15 +67,12 @@ public class GroupManager {
 		Objects.requireNonNull(player, "The player is null.");
 		
 		final String group = this.getPlayerGroup(player.getUniqueId());
-		if (this.configuration.section(FileType.CONFIG, "config.server.groups." + group) != null) {
+		if (this.configuration.section("config.server.groups." + group) != null) {
 			this.plugin
 				 .actionManager()
 				 .executeActions(
 						player,
-					  this.configuration.stringList(
-							 FileType.CONFIG,
-						   "config.server.groups." + group + ".actions"
-					  )
+					  this.configuration.stringList("config.server.groups." + group + ".actions")
 				 );
 		}
 	}
@@ -98,14 +90,12 @@ public class GroupManager {
 			 .callEvent(particleShowEvent);
 		if (!particleShowEvent.isCancelled()) {
 			final String group = this.getPlayerGroup(player.getUniqueId());
-			if (this.configuration.section(FileType.CONFIG, "config.server.groups." + group) != null) {
+			if (this.configuration.section("config.server.groups." + group) != null) {
 				this.particleManager
 					 .showForm(
 							player,
 							this.particleManager.userParticleType(player.getUniqueId()),
-							this.configuration.string(
-								 FileType.CONFIG,
-								 "config.server.groups." + group + ".particle-params")
+							this.configuration.string("config.server.groups." + group + ".particle-params")
 					 );
 			}
 		}

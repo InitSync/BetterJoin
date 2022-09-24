@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.enums.modules.particles.ParticleType;
 import team.aquatic.betterjoin.particles.ParticleExecutable;
 import team.aquatic.betterjoin.particles.forms.*;
@@ -72,9 +71,8 @@ public class ParticleManager {
 		final String group = this.plugin
 			 .groupManager()
 			 .getPlayerGroup(uuid);
-		if (this.configuration.section(FileType.CONFIG, "config.server.groups." + group) != null) {
-			return ParticleType.valueOf(this.configuration
-				 .string(FileType.CONFIG, "config.server.groups." + group + ".particle-type"));
+		if (this.configuration.section("config.server.groups." + group) != null) {
+			return ParticleType.valueOf(this.configuration.string("config.server.groups." + group + ".particle-type"));
 		}
 		return null;
 	}
