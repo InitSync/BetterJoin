@@ -110,7 +110,7 @@ public final class BetterJoin extends JavaPlugin {
 		if (this.particleManager == null) {
 			LogPrinter.info(
 				 "The ParticleManager is disabled.",
-				 "If you want use it, uses Minecraft 1.9 or above."
+				 "If you want use it, uses Minecraft 1.9 or above and active the feature."
 			);
 			return null;
 		}
@@ -136,12 +136,12 @@ public final class BetterJoin extends JavaPlugin {
 		
 		this.luckPerms = LuckPermsProvider.get();
 		this.loadConfiguration();
-		this.groupManager = GroupInterface.newManagerInstance(this);
 		if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
 			this.particleManager = ParticleInterface.newManagerInstance(this);
 		}
+		this.groupManager = GroupInterface.newManagerInstance(this);
 		this.actionManager = ActionInterface.newManagerInstance(this);
-		this.loadExpansion();
+		this.dependency();
 		this.loaders();
 		
 		LogPrinter.info(
@@ -178,13 +178,12 @@ public final class BetterJoin extends JavaPlugin {
 		this.configuration = ConfigInterface.newConfigurationInstance(this);
 	}
 	
-	private void loadExpansion() {
+	private void dependency() {
 		if (this.pluginManager
 			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
 			 .isPluginEnabled("PlaceholderAPI")
 		) {
 			Utils.papiIsAvailable = true;
-			ExpansionInterface.newExpansionInstance().register();
 			
 			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
 		}
