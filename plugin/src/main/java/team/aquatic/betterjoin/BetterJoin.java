@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
-import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.interfaces.*;
 import team.aquatic.betterjoin.listeners.PlayerJoinListener;
 import team.aquatic.betterjoin.listeners.PlayerQuitListener;
@@ -138,10 +137,7 @@ public final class BetterJoin extends JavaPlugin {
 		this.luckPerms = LuckPermsProvider.get();
 		this.loadConfiguration();
 		this.groupManager = GroupInterface.newManagerInstance(this);
-		if (ReflectionUtils.supports(9) && this.configuration.check(
-			 FileType.CONFIG,
-			 "config.server.allow-particles")
-		) {
+		if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
 			this.particleManager = ParticleInterface.newManagerInstance(this);
 		}
 		this.actionManager = ActionInterface.newManagerInstance(this);
@@ -178,10 +174,7 @@ public final class BetterJoin extends JavaPlugin {
 	}
 	
 	private void loadConfiguration() {
-		this.configurationManager = ConfigInterface.newManagerInstance(this,
-			 "config.yml",
-			 "messages.yml"
-		);
+		this.configurationManager = ConfigInterface.newManagerInstance(this, "config.yml");
 		this.configuration = ConfigInterface.newConfigurationInstance(this);
 	}
 	
