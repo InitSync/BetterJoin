@@ -6,10 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.modules.files.FileActionType;
-import team.aquatic.betterjoin.enums.modules.files.FileType;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,153 +19,86 @@ public class Configuration {
 			 .configurationManager();
 	}
 	
-	public void doSomething(@NotNull FileType fileType, @NotNull FileActionType fileActionType) {
-		Objects.requireNonNull(fileType, "The file type is null.");
+	public void doSomething(@NotNull FileActionType fileActionType) {
 		Objects.requireNonNull(fileActionType, "The file action type is null.");
 		
-		switch (fileType) {
-			case CONFIG:
-				switch (fileActionType) {
-					case RELOAD:
-						this.configurationManager.reload("config.yml");
-						break;
-					case SAVE:
-						this.configurationManager.save("config.yml");
-						break;
-				}
+		switch (fileActionType) {
+			case RELOAD:
+				this.configurationManager.reload("config.yml");
 				break;
-			case MESSAGES:
-				switch (fileActionType) {
-					case RELOAD:
-						this.configurationManager.reload("messages.yml");
-						break;
-					case SAVE:
-						this.configurationManager.save("messages.yml");
-						break;
-				}
+			case SAVE:
+				this.configurationManager.save("config.yml");
 				break;
 		}
 	}
 	
 	/**
-	 * It returns a string from a file
+	 * It returns a string from the file
 	 *
-	 * @param fileType The type of file you want to get the string from.
 	 * @param path The path to the value you want to get.
 	 * @return A string.
 	 */
-	public @NotNull String string(@NotNull FileType fileType, @NotNull String path) {
-		Objects.requireNonNull(fileType, "The file type is null.");
+	public @NotNull String string(@NotNull String path) {
 		Validate.notEmpty(path, "The path requested is empty.");
 		
-		switch (fileType) {
-			case CONFIG:
-				return this.configurationManager
-					 .file("config.yml")
-					 .getString(path);
-			case MESSAGES:
-				return this.configurationManager
-					 .file("messages.yml")
-					 .getString(path);
-		}
-		return "";
+		return this.configurationManager
+			 .file("config.yml")
+			 .getString(path);
 	}
 	
 	/**
-	 * This function returns an integer from a file.
+	 * This function returns an integer from the file.
 	 *
-	 * @param fileType The file type you want to get the integer from.
 	 * @param path The path to the value you want to get.
-	 * @return -10234
+	 * @return an int
 	 */
-	public int integer(@NotNull FileType fileType, @NotNull String path) {
-		Objects.requireNonNull(fileType, "The file type is null.");
+	public int integer(@NotNull String path) {
 		Validate.notEmpty(path, "The path requested is empty.");
 		
-		switch (fileType) {
-			case CONFIG:
-				return this.configurationManager
-					 .file("config.yml")
-					 .getInt(path);
-			case MESSAGES:
-				return this.configurationManager
-					 .file("messages.yml")
-					 .getInt(path);
-		}
-		return -10234;
+		return this.configurationManager
+			 .file("config.yml")
+			 .getInt(path);
 	}
 	
 	/**
-	 * "Get a list of strings from the specified file type and path."
+	 * Get a list of strings from the file and path.
 	 *
-	 * The first thing we do is check if the file type is null. If it is, we throw a NullPointerException
-	 *
-	 * @param fileType The file type you want to get the string list from.
 	 * @param path The path to the value you want to get.
 	 * @return A list of strings.
 	 */
-	public @NotNull List<String> stringList(@NotNull FileType fileType, @NotNull String path) {
-		Objects.requireNonNull(fileType, "The file type is null.");
+	public @NotNull List<String> stringList(@NotNull String path) {
 		Validate.notEmpty(path, "The path requested is empty.");
 		
-		switch (fileType) {
-			case CONFIG:
-				return this.configurationManager
-					 .file("config.yml")
-					 .getStringList(path);
-			case MESSAGES:
-				return this.configurationManager
-					 .file("messages.yml")
-					 .getStringList(path);
-		}
-		return Collections.emptyList();
+		return this.configurationManager
+			 .file("config.yml")
+			 .getStringList(path);
 	}
 	
 	/**
-	 * Returns a configuration section from the specified file type and path.
+	 * Returns a configuration section from the file and path.
 	 *
-	 * @param fileType The file type you want to get the section from.
 	 * @param path The path to the section.
 	 * @return A ConfigurationSection object.
 	 */
-	public @Nullable ConfigurationSection section(@NotNull FileType fileType, @NotNull String path) {
-		Objects.requireNonNull(fileType, "The file type is null.");
+	public @Nullable ConfigurationSection section(@NotNull String path) {
 		Validate.notEmpty(path, "The path requested is empty.");
 		
-		switch (fileType) {
-			case CONFIG:
-				return this.configurationManager
-					 .file("config.yml")
-					 .getConfigurationSection(path);
-			case MESSAGES:
-				this.configurationManager
-					 .file("messages.yml")
-					 .getConfigurationSection(path);
-		}
-		return null;
+		return this.configurationManager
+			 .file("config.yml")
+			 .getConfigurationSection(path);
 	}
 	
 	/**
-	 * It checks if a path in a file is a boolean
+	 * It checks if a path in the file is a boolean
 	 *
-	 * @param fileType The file type you want to check.
 	 * @param path The path to the value you want to check.
 	 * @return A boolean value.
 	 */
-	public boolean check(@NotNull FileType fileType, @NotNull String path) {
-		Objects.requireNonNull(fileType, "The file type is null.");
+	public boolean check(@NotNull String path) {
 		Validate.notEmpty(path, "The path requested is empty.");
 		
-		switch (fileType) {
-			case CONFIG:
-				return this.configurationManager
-					 .file("config.yml")
-					 .getBoolean(path);
-			case MESSAGES:
-				return this.configurationManager
-					 .file("messages.yml")
-					 .getBoolean(path);
-		}
-		return false;
+		return this.configurationManager
+			 .file("config.yml")
+			 .getBoolean(path);
 	}
 }
