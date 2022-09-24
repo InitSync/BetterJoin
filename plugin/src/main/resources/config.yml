@@ -30,7 +30,7 @@ config:
     # Player Motd Message.
     # You can add special colors as: Solids, Rainbow or Gradients
     motd:
-      - "       <GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
+      - "             <GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
       - ""
       - "       &fRemember invite to your &aFriends &fand &ehave fun!"
       - ""
@@ -72,3 +72,14 @@ config:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
           - "[TITLE] &eWelcome &6<player_name>!;&aHave fun!;20;60;20"
           - "[ACTION_BAR] 100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
+
+messages:
+  no-permission: "<prefix> &cYou don't have permissions to use that command!"
+  no-command: "<prefix> &cThat command not has been implemented!"
+
+  help:
+    - "&c[BetterJoin] &8| &6Available Commands:"
+    - "&7 - &e/betterjoin help &fShows this message."
+    - "&7 - &e/betterjoin reload &fReload the plugin files."
+
+  reload: "<prefix> &aAll Files Reloaded! &fThe plugin files was reloaded successfully!"
