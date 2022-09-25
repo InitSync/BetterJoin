@@ -25,7 +25,7 @@ dependencies {
 	
 	implementation(project(":api"))
 	implementation("org.jetbrains:annotations:23.0.0")
-	implementation("com.github.cryptomorin:XSeries:9.0.0")
+	implementation("com.github.cryptomorin:XSeries:9.1.0")
 	implementation("com.iridium:IridiumColorAPI:1.0.6")
 }
 
