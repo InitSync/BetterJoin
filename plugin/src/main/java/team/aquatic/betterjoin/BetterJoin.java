@@ -180,12 +180,10 @@ public final class BetterJoin extends JavaPlugin {
 	
 	private void dependency() {
 		if (this.pluginManager
-			 .getPlugin("PlaceholderAPI") != null && this.pluginManager
-			 .isPluginEnabled("PlaceholderAPI")
+		    .getPlugin("PlaceholderAPI") != null && this.pluginManager
+		    .isPluginEnabled("PlaceholderAPI")
 		) {
 			Utils.papiIsAvailable = true;
-			
-			LogPrinter.info("Registered PlaceholderAPI expansion successfully.");
 		}
 	}
 	
