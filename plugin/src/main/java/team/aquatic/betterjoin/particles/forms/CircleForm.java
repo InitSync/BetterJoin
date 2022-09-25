@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.particles.forms;
 import com.cryptomorin.xseries.particles.ParticleDisplay;
 import com.cryptomorin.xseries.particles.XParticle;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,11 @@ public class CircleForm extends ParticleExecutable {
 		
 		final double radius = Double.parseDouble(this.split[0]);
 		final double rate = Double.parseDouble(this.split[1]);
+		
 		final Particle particle = Particle.valueOf(this.split[2]);
-		XParticle.circle(radius, rate, ParticleDisplay.of(particle));
+		XParticle.circle(
+			 radius, rate,
+			 ParticleDisplay.display(player.getLocation(), particle)
+		);
 	}
 }

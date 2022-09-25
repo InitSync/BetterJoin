@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.particles.forms;
 import com.cryptomorin.xseries.particles.ParticleDisplay;
 import com.cryptomorin.xseries.particles.XParticle;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -31,10 +32,12 @@ public class DiamondForm extends ParticleExecutable {
 		final double radius = Double.parseDouble(this.split[0]);
 		final double rate = Double.parseDouble(this.split[1]);
 		final double height = Double.parseDouble(this.split[2]);
+		
 		final Particle particle = Particle.valueOf(this.split[3]);
+	
 		XParticle.diamond(
 			 radius, rate, height,
-			 ParticleDisplay.of(particle)
+			 ParticleDisplay.display(player.getLocation(), particle)
 		);
 	}
 }

@@ -30,11 +30,12 @@ public class LineForm extends ParticleExecutable {
 		
 		final double length = Double.parseDouble(this.split[0]);
 		final double rate = Double.parseDouble(this.split[1]);
+		
 		final Particle particle = Particle.valueOf(this.split[2]);
 		XParticle.drawLine(
 			 player,
 			 length, rate,
-			 ParticleDisplay.of(particle)
+			 ParticleDisplay.display(player.getLocation(), particle)
 		);
 	}
 }

@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.particles.forms;
 import com.cryptomorin.xseries.particles.ParticleDisplay;
 import com.cryptomorin.xseries.particles.XParticle;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -30,9 +31,12 @@ public class CloudForm extends ParticleExecutable {
 		
 		final Particle cloudParticle = Particle.valueOf(this.split[0]);
 		final Particle rainParticle = Particle.valueOf(this.split[1]);
-		XParticle.cloud(plugin,
-			 ParticleDisplay.of(cloudParticle),
-			 ParticleDisplay.of(rainParticle)
+		
+		final Location location = player.getLocation();
+		XParticle.cloud(
+			 plugin,
+			 ParticleDisplay.display(location, cloudParticle),
+			 ParticleDisplay.display(location, rainParticle)
 		);
 	}
 }

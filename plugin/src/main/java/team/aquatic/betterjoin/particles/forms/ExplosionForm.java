@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.particles.forms;
 import com.cryptomorin.xseries.particles.ParticleDisplay;
 import com.cryptomorin.xseries.particles.XParticle;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -29,13 +30,16 @@ public class ExplosionForm extends ParticleExecutable {
 		this.split = params.split(";");
 		
 		final double rate = Double.parseDouble(this.split[0]);
+		
 		final Particle particle = Particle.valueOf(this.split[1]);
 		final Particle secParticle = Particle.valueOf(this.split[2]);
+		
+		final Location location = player.getLocation();
 		XParticle.explosionWave(
 			 plugin,
 			 rate,
-			 ParticleDisplay.of(particle),
-			 ParticleDisplay.of(secParticle)
+			 ParticleDisplay.display(location, particle),
+			 ParticleDisplay.display(location, secParticle)
 		);
 	}
 }

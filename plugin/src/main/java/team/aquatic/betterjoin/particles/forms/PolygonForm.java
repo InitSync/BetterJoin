@@ -30,14 +30,16 @@ public class PolygonForm extends ParticleExecutable {
 		
 		final int points = Integer.parseInt(this.split[0]);
 		final int connections = Integer.parseInt(this.split[1]);
+		
 		final double size = Double.parseDouble(this.split[2]);
 		final double rate = Double.parseDouble(this.split[3]);
 		final double extend = Double.parseDouble(this.split[4]);
+		
 		final Particle particle = Particle.valueOf(this.split[5]);
 		XParticle.polygon(
 			 points, connections,
 			 size, rate, extend,
-			 ParticleDisplay.of(particle)
+			 ParticleDisplay.display(player.getLocation(), particle)
 		);
 	}
 }

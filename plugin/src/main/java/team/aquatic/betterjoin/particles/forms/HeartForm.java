@@ -3,6 +3,7 @@ package team.aquatic.betterjoin.particles.forms;
 import com.cryptomorin.xseries.particles.ParticleDisplay;
 import com.cryptomorin.xseries.particles.XParticle;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -33,11 +34,12 @@ public class HeartForm extends ParticleExecutable {
 		final double depth = Double.parseDouble(this.split[2]);
 		final double compressHeight = Double.parseDouble(this.split[3]);
 		final double rate = Double.parseDouble(this.split[4]);
+		
 		final Particle particle = Particle.valueOf(this.split[5]);
 		XParticle.heart(
 			 cut, cutAngle, depth,
 			 compressHeight, rate,
-			 ParticleDisplay.of(particle)
+			 ParticleDisplay.display(player.getLocation(), particle)
 		);
 	}
 }
