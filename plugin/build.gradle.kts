@@ -21,7 +21,7 @@ repositories {
 dependencies {
 	compileOnly("com.destroystokyo.paper:paper-api:1.13.2-R0.1-SNAPSHOT")
 	compileOnly("me.clip:placeholderapi:2.11.2")
-	compileOnly("net.luckperms:api:5.2")
+	compileOnly("net.luckperms:api:5.4")
 	
 	implementation(project(":api"))
 	implementation("org.jetbrains:annotations:23.0.0")
