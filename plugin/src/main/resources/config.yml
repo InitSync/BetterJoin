@@ -22,7 +22,7 @@ config:
 
     # Allow show particles to join?
     # NOTE: This feature requires Minecraft 1.9 or above.
-    allow-particles: false
+    allow-particles: true
 
     # Allow send the motd when join the player?
     allow-motd: true
@@ -30,7 +30,7 @@ config:
     # Player Motd Message.
     # You can add special colors as: Solids, Rainbow or Gradients
     motd:
-      - "             <GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
+      - "                 <GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
       - ""
       - "       &fRemember invite to your &aFriends &fand &ehave fun!"
       - ""
