@@ -102,10 +102,8 @@ public class ConfigurationManager implements ConfigurationModel {
 	 */
 	@Override
 	public @Nullable FileConfiguration file(@NotNull String fileName) {
-		if (!this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)) {
-			LogPrinter.config("Failed to get the file '" + fileName + "' because not exist.");
-			return null;
-		}
-		return this.configurationMap.get(fileName);
+		return !this.fileMap.containsKey(fileName) && !this.configurationMap.containsKey(fileName)
+			 ? null
+			 : this.configurationMap.get(fileName);
 	}
 }
