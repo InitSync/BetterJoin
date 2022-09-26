@@ -80,9 +80,10 @@ public class GroupManager {
 	public void executeGroupParticles(@NotNull Player player) {
 		Objects.requireNonNull(player, "The player is null.");
 		
+		final UUID uuid = player.getUniqueId();
 		final ParticleShowEvent particleShowEvent = new ParticleShowEvent(
 			 player,
-			 this.particleManager.userParticleType(player.getUniqueId()).name()
+			 this.particleManager.groupParticleType(uuid).name()
 		);
 		this.plugin
 			 .getServer()
@@ -94,7 +95,7 @@ public class GroupManager {
 				this.particleManager
 					 .showForm(
 							player,
-							this.particleManager.userParticleType(player.getUniqueId()),
+							this.particleManager.groupParticleType(uuid),
 							this.configuration.string("config.server.groups." + group + ".particle-params")
 					 );
 			}
