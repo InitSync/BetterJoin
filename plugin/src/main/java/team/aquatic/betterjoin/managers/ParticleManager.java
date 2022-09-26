@@ -65,16 +65,15 @@ public class ParticleManager {
 	 * @param uuid The uuid of the player.
 	 * @return The particle type of the user.
 	 */
-	public @Nullable ParticleType userParticleType(@NotNull UUID uuid) {
+	public @Nullable ParticleType groupParticleType(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
 		final String group = this.plugin
 			 .groupManager()
 			 .getPlayerGroup(uuid);
-		if (this.configuration.section("config.server.groups." + group) != null) {
-			return ParticleType.valueOf(this.configuration.string("config.server.groups." + group + ".particle-type"));
-		}
-		return null;
+		return this.configuration.section("config.server.groups." + group) != null
+			 ? ParticleType.valueOf(this.configuration.string("config.server.groups." + group + ".particle-type"))
+			 : null;
 	}
 	
 	/**
@@ -97,5 +96,7 @@ public class ParticleManager {
 	/**
 	 * It removes all particles from the particle system
 	 */
-	public void unregisterAll() { this.particles.clear(); }
+	public void unregisterAll() {
+		this.particles.clear();
+	}
 }
