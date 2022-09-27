@@ -37,15 +37,10 @@ public class GroupManager {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
 		final String group = this.getPlayerGroup(uuid);
-		
-		String message;
-		if (this.configuration.section("config.server.groups." + group) != null) {
-			message = this.configuration.string("config.server.groups." + group + ".join");
-			return message;
-		}
-		
-		message = "";
-		return message;
+	
+		return this.configuration.section("config.server.groups." + group) != null
+        ? this.configuration.string("config.server.groups." + group + ".join")
+        : "";
 	}
 	
 	public @NotNull String groupQuitMessage(@NotNull UUID uuid) {
@@ -53,14 +48,9 @@ public class GroupManager {
 		
 		final String group = this.getPlayerGroup(uuid);
 		
-		String message;
-		if (this.configuration.section("config.server.groups." + group) != null) {
-			message = this.configuration.string("config.server.groups." + group + ".quit");
-			return message;
-		}
-		
-		message = "";
-		return message;
+		return this.configuration.section("config.server.groups." + group) != null
+        ? this.configuration.string("config.server.groups." + group + ".quit");
+        : "";
 	}
 	
 	public void executeGroupActions(@NotNull Player player) {
