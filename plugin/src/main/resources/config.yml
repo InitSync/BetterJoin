@@ -26,9 +26,13 @@ config:
     # Player Motd Message.
     # You can add special colors as: Solids, Rainbow or Gradients
     motd:
+      - ""
       - "<gradient:aqua:green>                   ServerName Network"
       - ""
       - "<white>       Remember invite to your <green>Friends <white>>and <yellow>have fun!"
+      - ""
+      - "<gradient:yellow:gold>                Social Networks</gradient> <gray>(Do Click)"
+      - "<gradient:green:blue><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'store.com/yourserver'>         Store • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'yourserver.com'>Web • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'twitter.com/@Yourserver'>Twitter • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'discord.io/yourserver'>Discord</click></gradient>"
       - ""
 
     # Join/Quit groups.
