@@ -1,13 +1,11 @@
 package team.aquatic.betterjoin;
 
-import com.cryptomorin.xseries.ReflectionUtils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import team.aquatic.betterjoin.commands.MainCommand;
 import team.aquatic.betterjoin.commands.MainCommandTabCompleter;
 import team.aquatic.betterjoin.enums.Configuration;
@@ -17,7 +15,6 @@ import team.aquatic.betterjoin.listeners.PlayerQuitListener;
 import team.aquatic.betterjoin.managers.ActionManager;
 import team.aquatic.betterjoin.managers.ConfigurationManager;
 import team.aquatic.betterjoin.managers.GroupManager;
-import team.aquatic.betterjoin.managers.ParticleManager;
 import team.aquatic.betterjoin.utils.LogPrinter;
 import team.aquatic.betterjoin.utils.Utils;
 
@@ -34,7 +31,6 @@ public final class BetterJoin extends JavaPlugin {
 	private ConfigurationManager configurationManager;
 	private Configuration configuration;
 	private GroupManager groupManager;
-	private ParticleManager particleManager;
 	private ActionManager actionManager;
 	
 	/**
@@ -102,22 +98,6 @@ public final class BetterJoin extends JavaPlugin {
 	}
 	
 	/**
-	 * If the particleManager is null, send a log and returns null, otherwise return the particleManager.
-	 *
-	 * @return The ParticleManager instance.
-	 */
-	public @Nullable ParticleManager particleManager() {
-		if (this.particleManager == null) {
-			LogPrinter.info(
-				 "The ParticleManager is disabled.",
-				 "If you want use it, uses Minecraft 1.9 or above and active the feature."
-			);
-			return null;
-		}
-		return this.particleManager;
-	}
-	
-	/**
 	 * If the actionManager is null, throw an exception. Otherwise, return the actionManager
 	 *
 	 * @return The ActionManager instance.
@@ -136,9 +116,6 @@ public final class BetterJoin extends JavaPlugin {
 		
 		this.luckPerms = LuckPermsProvider.get();
 		this.loadConfiguration();
-		if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
-			this.particleManager = ParticleInterface.newManagerInstance(this);
-		}
 		this.groupManager = GroupInterface.newManagerInstance(this);
 		this.actionManager = ActionInterface.newManagerInstance(this);
 		this.dependency();
@@ -162,10 +139,6 @@ public final class BetterJoin extends JavaPlugin {
 			this.configurationManager = null;
 		}
 		if (this.groupManager != null) this.groupManager = null;
-		if (this.particleManager != null) {
-			this.particleManager.unregisterAll();
-			this.particleManager = null;
-		}
 		if (this.actionManager != null) {
 			this.actionManager.unregisterAll();
 			this.actionManager = null;

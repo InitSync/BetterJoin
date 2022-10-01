@@ -23,12 +23,8 @@ public class Configuration {
 		Objects.requireNonNull(fileActionType, "The file action type is null.");
 		
 		switch (fileActionType) {
-			case RELOAD:
-				this.configurationManager.reload("config.yml");
-				break;
-			case SAVE:
-				this.configurationManager.save("config.yml");
-				break;
+			case RELOAD -> this.configurationManager.reload("config.yml");
+			case SAVE -> this.configurationManager.save("config.yml");
 		}
 	}
 	

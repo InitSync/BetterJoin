@@ -30,11 +30,18 @@ public class ActionBarActionType extends ActionExecutable {
 		
 		this.split = container.split(";");
 		
-		Utils.sendActionBar(
+		final long duration = Long.parseLong(this.split[0]);
+		
+		if (duration == 0) {
+			Utils.showActionBar(player, this.split[1]);
+			return;
+		}
+		
+		Utils.showTempActionBar(
 			 plugin,
 			 player,
 			 this.split[1],
-			 Long.parseLong(this.split[0])
+			 duration
 		);
 	}
 }

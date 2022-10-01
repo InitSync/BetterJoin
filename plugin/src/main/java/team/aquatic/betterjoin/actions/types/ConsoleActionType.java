@@ -1,6 +1,6 @@
 package team.aquatic.betterjoin.actions.types;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +28,6 @@ public class ConsoleActionType extends ActionExecutable {
 		
 		plugin.getServer()
 			 .getConsoleSender()
-			 .sendMessage(IridiumColorAPI.process(container));
+			 .sendMessage(MiniMessage.miniMessage().deserialize(container));
 	}
 }

@@ -1,7 +1,7 @@
 package team.aquatic.betterjoin.commands;
 
-import com.cryptomorin.xseries.XSound;
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -13,25 +13,18 @@ import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.enums.Configuration;
 import team.aquatic.betterjoin.enums.modules.files.FileActionType;
 import team.aquatic.betterjoin.enums.modules.permissions.PermissionType;
+import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
 
 public class MainCommand implements CommandExecutor {
 	private final BetterJoin plugin;
 	private final Configuration configuration;
-	private final Sound permSound;
-	private final Sound reloadSound;
 	private final String prefix;
 	
 	public MainCommand(@NotNull BetterJoin plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "BetterJoin instance is null.");
 		this.configuration = this.plugin.configuration();
-		this.permSound = XSound.matchXSound(this.configuration.string("config.sounds.no-perm"))
-			 .get()
-			 .parseSound();
-		this.reloadSound = XSound.matchXSound(this.configuration.string("config.sounds.reload"))
-			 .get()
-			 .parseSound();
 		this.prefix = this.configuration.string("config.prefix");
 	}
 	
@@ -47,39 +40,42 @@ public class MainCommand implements CommandExecutor {
 		final Player player = (Player) sender;
 		
 		if (args.length == 0) {
-			player.sendMessage(IridiumColorAPI.process(
-				 "<prefix> &f Running at &8(&b" + Bukkit.getBukkitVersion() + "&8)"
-			).replace("<prefix>", this.prefix));
-			player.sendMessage(IridiumColorAPI.process(
+			player.sendMessage(MiniMessage.miniMessage().deserialize(
+				 "<prefix> &f Running at &8(&b" + Bukkit.getBukkitVersion() + "&8)",
+				 Placeholder.parsed("<prefix>", this.prefix))
+			);
+			player.sendMessage(MiniMessage.miniMessage().deserialize(
 				 "<prefix> &f Developed by &b" + this.plugin
-					  .author + " &8| &a" + this.plugin
-					  .version
-			).replace("<prefix>", this.prefix));
+						.author + " &8| &a" + this.plugin
+						.version,
+				 Placeholder.parsed("<prefix>", this.prefix))
+			);
 			return false;
 		}
 		
 		switch (args[0]) {
-			default:
-				player.sendMessage(IridiumColorAPI.process(
-					 this.configuration
-						  .string("messages.no-command")
-						  .replace("<prefix>", this.prefix)
-				));
-				break;
-			case "help":
+			default -> {
+				player.sendMessage(Utils.parse(player,
+					 this.configuration.string("messages.no-command")
+						  .replace("<prefix>", this.prefix))
+				);
+			}
+			case "help" -> {
 				if (player.hasPermission(PermissionType.HELP_CMD.getPerm())) {
 					this.configuration
 						 .stringList("messages.help")
 						 .forEach(string -> {
-							 sender.sendMessage(IridiumColorAPI.process(string)
-								  .replace("<prefix>", this.prefix));
+							 player.sendMessage(Utils.parse(player, string.replace("<prefix>", this.prefix)));
 						 });
 				} else this.notPermission(player);
-				break;
-			case "reload":
-				if (player.hasPermission(PermissionType.RELOAD_CMD.getPerm())) this.reload(player);
-				else this.notPermission(player);
-				break;
+			}
+			case "config" -> {
+				if (player.hasPermission(PermissionType.RELOAD_CMD.getPerm())) {
+					this.reload(player);
+					return false;
+				}
+				this.notPermission(player);
+			}
 		}
 		return false;
 	}
@@ -91,10 +87,10 @@ public class MainCommand implements CommandExecutor {
 		
 		player.playSound(
 			 player.getLocation(),
-			 this.permSound,
+			 Sound.valueOf(this.configuration.string("config.sounds.no-perm")),
 			 volume, volume
 		);
-		player.sendMessage(IridiumColorAPI.process(
+		player.sendMessage(MiniMessage.miniMessage().deserialize(
 			 this.configuration
 				  .string("messages.no-permission")
 				  .replace("<prefix>", this.prefix)
@@ -110,13 +106,13 @@ public class MainCommand implements CommandExecutor {
 		
 		player.playSound(
 			 player.getLocation(),
-			 this.reloadSound,
+			 Sound.valueOf(this.configuration.string("config.sounds.reload")),
 			 volume, volume
 		);
-		player.sendMessage(IridiumColorAPI.process(
+		player.sendMessage(MiniMessage.miniMessage().deserialize(
 			 this.configuration
-				  .string("messages.reload")
-				  .replace("<prefix>", this.prefix)
+					.string("messages.reload")
+					.replace("<prefix>", this.prefix)
 		));
 	}
 }

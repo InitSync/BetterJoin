@@ -1,15 +1,18 @@
 package team.aquatic.betterjoin.utils;
 
-import com.cryptomorin.xseries.messages.ActionBar;
-import com.cryptomorin.xseries.messages.Titles;
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.title.Title;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.Duration;
 import java.util.Objects;
 
 public class Utils {
@@ -22,19 +25,20 @@ public class Utils {
 	 * @param text The text to parse.
 	 * @return The text with the variables replaced.
 	 */
-	public static String parse(@NotNull Player player, @NotNull String text) {
+	public static @NotNull Component parse(@NotNull Player player, @NotNull String text) {
 		Objects.requireNonNull(player, "Player is null.");
+		Validate.notEmpty(text, "The text to parse");
 		
 		if (papiIsAvailable) text = PlaceholderAPI.setPlaceholders(player, text);
 		
-		text = text.replace("<player_name>", player.getName())
-			 .replace("<player_level>", Integer.toString(player.getLevel()))
-			 .replace("<player_exp>", Integer.toString(player.getTotalExperience()))
-			 .replace("<player_world>", player.getWorld().getName())
-			 .replace("<player_kills>", Integer.toString(player.getStatistic(Statistic.PLAYER_KILLS)))
-			 .replace("<player_server>", player.getServer().getName());
-		
-		return IridiumColorAPI.process(text);
+		return MiniMessage.miniMessage().deserialize(text,
+			 Placeholder.parsed("player_name", player.getName()),
+			 Placeholder.parsed("player_level", Integer.toString(player.getLevel())),
+			 Placeholder.parsed("player_exp", Integer.toString(player.getTotalExperience())),
+			 Placeholder.parsed("player_world", player.getWorld().getName()),
+			 Placeholder.parsed("player_kills", Integer.toString(player.getStatistic(Statistic.PLAYER_KILLS))),
+			 Placeholder.parsed("player_server", player.getServer().getName())
+		);
 	}
 	
 	/**
@@ -47,26 +51,24 @@ public class Utils {
 	 * @param stay The amount of time in ticks the title should stay on the screen.
 	 * @param fadeOut The time it takes for the title to fade out.
 	 */
-	public static void sendTitle(
+	public static void showTitle(
 		 @NotNull Player player,
-		 @NotNull String title,
-		 @NotNull String subtitle,
-		 int fadeIn,
-		 int stay,
-		 int fadeOut
+		 @NotNull String title, @NotNull String subtitle,
+		 int fadeIn, int stay, int fadeOut
 	) {
 		Objects.requireNonNull(player, "Player is null.");
 		Validate.notEmpty(title, "The title is empty.");
 		Validate.notEmpty(subtitle, "The subtitle is empty.");
 		
-		Titles.sendTitle(
-			 player,
-			 fadeIn,
-			 stay,
-			 fadeOut,
-			 IridiumColorAPI.process(title),
-			 IridiumColorAPI.process(subtitle)
-		);
+		player.showTitle(Title.title(
+			 parse(player, title),
+			 parse(player, subtitle),
+			 Title.Times.times(
+					Duration.ofSeconds(fadeIn),
+				  Duration.ofSeconds(stay),
+				  Duration.ofSeconds(fadeOut)
+			 )
+		));
 	}
 	
 	/**
@@ -77,7 +79,7 @@ public class Utils {
 	 * @param message The message to send.
 	 * @param duration The duration in ticks that the action bar will be displayed for.
 	 */
-	public static void sendActionBar(
+	public static void showTempActionBar(
 		 @NotNull JavaPlugin plugin,
 		 @NotNull Player player,
 		 @NotNull String message,
@@ -85,13 +87,26 @@ public class Utils {
 	) {
 		Objects.requireNonNull(plugin, "JavaPlugin instance is null.");
 		Objects.requireNonNull(player, "Player is null.");
-		Validate.notEmpty(message, "The message is empty.");
+		Validate.notEmpty(message, "The message to parse");
 		
-		ActionBar.sendActionBar(
-			 plugin,
-			 player,
-			 message,
-			 duration
-		);
+		if (duration < 1) return;
+		
+		new BukkitRunnable() {
+			long repeater = duration;
+			
+			@Override
+			public void run() {
+				player.sendActionBar(parse(player, message));
+				repeater -= 40L;
+				if (repeater - 40L < -20L) cancel();
+			}
+		}.runTaskTimerAsynchronously(plugin, 0L, 40L);
+	}
+	
+	public static void showActionBar(@NotNull Player player, @NotNull String message) {
+		Objects.requireNonNull(player, "Player is null.");
+		Validate.notEmpty(message, "The message to parse");
+		
+		player.sendActionBar(parse(player, message));
 	}
 }

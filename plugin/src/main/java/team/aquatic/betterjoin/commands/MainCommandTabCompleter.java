@@ -29,7 +29,7 @@ public class MainCommandTabCompleter implements TabCompleter {
 		
 		if (this.commandArgs.isEmpty()) {
 			this.commandArgs.add("help");
-			this.commandArgs.add("reload");
+			this.commandArgs.add("config");
 		}
 		
 		final List<String> results = new ArrayList<>();

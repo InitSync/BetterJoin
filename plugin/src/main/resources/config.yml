@@ -1,6 +1,6 @@
 config:
   # Plugin prefix
-  prefix: "&c[BetterJoin] &8>"
+  prefix: "<red>[BetterJoin] <dark_gray>>"
 
   sounds:
     # Play the sounds?
@@ -20,23 +20,16 @@ config:
     # Clear the chat messages to join?
     clear-chat: true
 
-    # Allow show particles to join?
-    # NOTE: This feature requires Minecraft 1.9 or above.
-    allow-particles: true
-
     # Allow send the motd when join the player?
     allow-motd: true
 
     # Player Motd Message.
     # You can add special colors as: Solids, Rainbow or Gradients
     motd:
-      - "                 <GRADIENT:03F9F1>ServerName Network</GRADIENT:FFFFFF>"
+      - "<gradient:aqua:green>                   ServerName Network"
       - ""
-      - "       &fRemember invite to your &aFriends &fand &ehave fun!"
+      - "<white>       Remember invite to your <green>Friends <white>>and <yellow>have fun!"
       - ""
-      - "&7• &9Discord: &ediscord.gg/yourServer"
-      - "&7• &6Web: &ewww.yourServer.com"
-      - "&7• &aStore: &estore.yourServer.com"
 
     # Join/Quit groups.
     # Note: You may be use LuckPerms for this. Another permissions plugin is not supported!
@@ -45,41 +38,36 @@ config:
         # Do you want allows use the plugin feature with this group?
         allow: true
 
-        # Group Join Particle type.
-        particle-type: ATOM
-
-        # Parameters of the particle.
-        particle-params: "3;10;5;ENCHANTMENT_TABLE;CLOUD"
-
         # Group Join Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        join: "&8[Member] &7<player_name> &8> &7Entered the &eLobby!"
+        join: "<dark_gray>[Member] <gray><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: <yellow><player_group><br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
 
         # Group Quit Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        quit: "&8[Member] &7<player_name> &8> &7He came out of the &cLobby!"
+        quit: "<dark_gray>[Member] <gray><player_name> <dark_gray><b>></b> <gray>He come out of the <yellow>Lobby!"
 
         # Group Join Actions.
         # You can add special colors for some actions.
-        actions: [ "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1" ]
-      admin:
-        allow: true
-        particle-type: ATOM
-        particle-params: "3;10;5;ENCHANTMENT_TABLE;CLOUD"
-        join: "&c ♫ [♥ Admin] &f<player_name> &8> &7Entered the &eLobby!"
-        quit: "&c ♫ [♥ Admin] &f<player_name> &8> &7He came out of the &cLobby!"
         actions:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
-          - "[TITLE] &eWelcome &6<player_name>!;&aHave fun!;20;60;20"
-          - "[ACTION_BAR] 100;<GRADIENT:0044FD>Powered by Aquatic Studios</GRADIENT:00D3FD>"
+          - "[EFFECT] SPEED;1000000;2"
+      admin:
+        allow: true
+        join: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: <yellow><player_group><br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
+        quit: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><player_name> <dark_gray><b>></b> <gray>He came out of the <yellow>Lobby!"
+        actions:
+          - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
+          - "[EFFECT] SPEED;1000000;2"
+          - "[TITLE] <yellow>Welcome <gold><player_name>!;<gradient:blue:aqua>Powered by Aquatic Studios;20;60;20"
+          - "[ACTION_BAR] 0;<gradient:yellow:gold><player_name></gradient> <gray>- <gradient:aqua:green><player_group>"
 
 messages:
-  no-permission: "<prefix> &cYou don't have permissions to use that command!"
-  no-command: "<prefix> &cThat command not has been implemented!"
+  no-permission: "<prefix> <gradient:red:dark_red>You don't have permissions to use that command!"
+  no-command: "<prefix> <gradient:red:dark_red>That command not has been implemented!"
 
   help:
-    - "&c[BetterJoin] &8| &6Available Commands:"
-    - "&7 - &e/betterjoin help &fShows this message."
-    - "&7 - &e/betterjoin reload &fReload the plugin files."
+    - "<red>[BetterJoin] <dark_gray>| <gold>Available Commands:"
+    - "<gray> - <yellow><hover:show_text:'<br><yellow>[Click to execute the command]<br>'><click:run_command:'/bj help'>/betterjoin help</click></yellow> <white>Shows this message."
+    - "<gray> - <yellow><hover:show_text:'<br><yellow>[Click to execute the command]<br>'><click:run_command:'/bj config'>/betterjoin config</click></yellow> <white>Shows this message."
 
-  reload: "<prefix> &aAll Files Reloaded! &fThe plugin files was reloaded successfully!"
+  reload: "<prefix> <gradient:green:dark_green>All Files Reloaded!</gradient> <white>The plugin files was reloaded successfully!"

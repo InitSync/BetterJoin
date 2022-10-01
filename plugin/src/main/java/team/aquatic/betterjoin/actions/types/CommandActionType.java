@@ -1,6 +1,5 @@
 package team.aquatic.betterjoin.actions.types;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,7 +30,7 @@ public class CommandActionType extends ActionExecutable {
 		
 		this.split = container.split(";");
 		
-		final String command = IridiumColorAPI.process(this.split[0]);
+		final String command = this.split[0];
 		
 		if (Boolean.parseBoolean(this.split[1])) {
 			plugin.getServer()

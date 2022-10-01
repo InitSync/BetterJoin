@@ -45,13 +45,10 @@ public class TitleActionType extends ActionExecutable {
 			return;
 		}
 		
-		Utils.sendTitle(
+		Utils.showTitle(
 			 player,
-			 this.split[0],
-			 this.split[1],
-			 fadeIn,
-			 stay,
-			 fadeOut
+			 this.split[0], this.split[1],
+			 fadeIn, stay, fadeOut
 		);
 	}
 }

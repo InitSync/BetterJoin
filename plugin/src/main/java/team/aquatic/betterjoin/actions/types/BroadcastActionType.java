@@ -1,6 +1,6 @@
 package team.aquatic.betterjoin.actions.types;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +26,6 @@ public class BroadcastActionType extends ActionExecutable {
 		Objects.requireNonNull(player, "The player is null.");
 		Validate.notEmpty(container, "The container is empty.");
 		
-		plugin.getServer().broadcastMessage(IridiumColorAPI.process(container));
+		plugin.getServer().broadcast(MiniMessage.miniMessage().deserialize(container));
 	}
 }

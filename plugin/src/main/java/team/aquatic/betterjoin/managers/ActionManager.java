@@ -7,7 +7,6 @@ import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.actions.ActionExecutable;
 import team.aquatic.betterjoin.actions.types.*;
 import team.aquatic.betterjoin.enums.modules.actions.ActionType;
-import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.*;
 
@@ -67,15 +66,12 @@ public class ActionManager {
 		
 		containers.forEach(container -> {
 			final String actionPrefix = StringUtils.substringBetween(container, "[", "]");
-			final ActionExecutable executable = this.actions.get(
-				 ActionType.valueOf(actionPrefix.toUpperCase())
-			);
+			final ActionExecutable executable = this.actions.get(ActionType.valueOf(actionPrefix.toUpperCase()));
 			
 			executable.executeAction(this.plugin, player,
-				 Utils.parse(player, container.contains(" ")
+				 container.contains(" ")
 				    ? container.split(" ", 2)[1]
 					  : ""
-				 )
 			);
 		});
 	}

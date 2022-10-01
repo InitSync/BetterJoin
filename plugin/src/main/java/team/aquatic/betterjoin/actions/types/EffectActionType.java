@@ -1,9 +1,9 @@
 package team.aquatic.betterjoin.actions.types;
 
-import com.cryptomorin.xseries.XPotion;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.actions.ActionExecutable;
@@ -46,7 +46,7 @@ public class EffectActionType extends ActionExecutable {
 		}
 		
 		player.addPotionEffect(new PotionEffect(
-			 XPotion.matchXPotion(this.split[0]).get().getPotionEffectType(),
+			 PotionEffectType.getByName(this.split[0]),
 			 duration, amplifier
 		));
 	}

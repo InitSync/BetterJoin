@@ -1,7 +1,5 @@
 package team.aquatic.betterjoin.listeners;
 
-import com.cryptomorin.xseries.ReflectionUtils;
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,27 +14,24 @@ import team.aquatic.betterjoin.utils.Utils;
 import java.util.Objects;
 
 public class PlayerJoinListener implements Listener {
-	private final BetterJoin plugin;
 	private final Configuration configuration;
 	private final GroupManager groupManager;
 	
 	public PlayerJoinListener(@NotNull BetterJoin plugin) {
-		this.plugin = Objects.requireNonNull(plugin, "BetterJoin instance is null.");
-		this.configuration = this.plugin.configuration();
-		this.groupManager = this.plugin.groupManager();
+		this.configuration = Objects.requireNonNull(plugin, "BetterJoin instance is null.").configuration();
+		this.groupManager = Objects.requireNonNull(plugin, "BetterJoin instance is null.").groupManager();
 	}
 	
 	@EventHandler (priority = EventPriority.LOW)
 	public void onPlayerJoin(@NotNull PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
-	
-		this.sendMotd(player);
-		this.groupManager.executeGroupActions(player);
-		if (ReflectionUtils.supports(9) && this.configuration.check("config.server.allow-particles")) {
-			this.groupManager.executeGroupParticles(player);
-		}
 		
-		event.setJoinMessage(Utils.parse(player, this.groupManager.groupJoinMessage(player.getUniqueId())));
+		this.sendMotd(player);
+		
+		if (this.groupManager.isAllowedGroup(player.getUniqueId())) {
+			this.groupManager.executeGroupActions(player);
+			event.joinMessage(this.groupManager.groupJoinMessage(player));
+		}
 	}
 	
 	private void sendMotd(@NotNull Player player) {
@@ -48,6 +43,6 @@ public class PlayerJoinListener implements Listener {
 		
 		this.configuration
 			 .stringList("config.server.motd")
-			 .forEach(string -> player.sendMessage(IridiumColorAPI.process(string)));
+			 .forEach(string -> player.sendMessage(Utils.parse(player, string)));
 	}
 }

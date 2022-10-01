@@ -1,7 +1,6 @@
 package team.aquatic.betterjoin.actions.types;
 
-import com.cryptomorin.xseries.XSound;
-import org.apache.commons.lang.Validate;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
@@ -27,7 +26,7 @@ public class SoundActionType extends ActionExecutable {
 	) {
 		Objects.requireNonNull(plugin, "BetterJoin instance is null.");
 		Objects.requireNonNull(player, "The player is null.");
-		Validate.notEmpty(container, "The container is empty.");
+		Objects.requireNonNull(container, "The container is null.");
 		
 		this.split = container.split(";");
 
@@ -45,7 +44,7 @@ public class SoundActionType extends ActionExecutable {
 		
 		player.playSound(
 			 player.getLocation(),
-			 XSound.matchXSound(this.split[0]).get().parseSound(),
+			 Sound.valueOf(this.split[0]),
 			 volume, pitch
 		);
 	}

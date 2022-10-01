@@ -1,12 +1,12 @@
 package team.aquatic.betterjoin.actions.types;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.actions.ActionExecutable;
 import team.aquatic.betterjoin.enums.modules.actions.ActionType;
+import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
 
@@ -27,6 +27,6 @@ public class MessageActionType extends ActionExecutable {
 		Objects.requireNonNull(player, "The player is null.");
 		Validate.notEmpty(container, "The container is empty.");
 		
-		player.sendMessage(IridiumColorAPI.process(container));
+		player.sendMessage(Utils.parse(player, container));
 	}
 }
