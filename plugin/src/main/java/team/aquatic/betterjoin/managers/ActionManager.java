@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.actions.ActionExecutable;
 import team.aquatic.betterjoin.actions.types.*;
+import team.aquatic.betterjoin.api.ActionsExecuteEvent;
 import team.aquatic.betterjoin.enums.modules.actions.ActionType;
 
 import java.util.*;
@@ -64,16 +65,23 @@ public class ActionManager {
 		Objects.requireNonNull(player, "The player is null.");
 		Objects.requireNonNull(containers, "The containers list is null.");
 		
-		containers.forEach(container -> {
-			final String actionPrefix = StringUtils.substringBetween(container, "[", "]");
-			final ActionExecutable executable = this.actions.get(ActionType.valueOf(actionPrefix.toUpperCase()));
-			
-			executable.executeAction(this.plugin, player,
-				 container.contains(" ")
-				    ? container.split(" ", 2)[1]
-					  : ""
-			);
-		});
+		final ActionsExecuteEvent executeEvent = new ActionsExecuteEvent();
+		this.plugin
+			 .getServer()
+			 .getPluginManager()
+			 .callEvent(executeEvent);
+		if (!executeEvent.isCancelled()) {
+			containers.forEach(container -> {
+				final String actionPrefix = StringUtils.substringBetween(container, "[", "]");
+				final ActionExecutable executable = this.actions.get(ActionType.valueOf(actionPrefix.toUpperCase()));
+				
+				executable.executeAction(this.plugin, player,
+					 container.contains(" ")
+							? container.split(" ", 2)[1]
+							: ""
+				);
+			});
+		}
 	}
 	
 	/**
