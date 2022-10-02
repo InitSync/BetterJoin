@@ -1,28 +1,10 @@
-
- <div align="center">
- 💫 ~ BetterJoin | Amazing Join Plugin ~ 💫
-  <p align="center"> 
-    • An amazing plugin to customize the entry/left of your lobby!
-    <br />
-    <br />
-    <a href="https://discord.io/aquaticstudios">Support</a>
-    ·
-    <a href="https://app.gitbook.com/o/NJJfo0ObAjo9gPYls1mb/s/M5AxtQDBGx3CEtj8V4eE/">Wiki</a>
-    ·
-    <a href="https://www.spigotmc.org/resources/034123123">SpigotMC</a>
-  
-  
-  </p>
-
-![Stars](https://img.shields.io/github/stars/aquaticstudios/BetterJoin?style=flat-square&logo=appveyor)
-![Forks](https://img.shields.io/github/forks/aquaticstudios/BetterJoin?style=flat-square&logo=appveyor)
-
-![Issues](https://img.shields.io/github/issues/aquaticstudios/BetterJoin?style=flat-square&logo=appveyor)
-![License](https://img.shields.io/github/license/aquaticstudios/BetterJoin?style=flat-square&logo=appveyor)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d17e7869e6c474c986baaa342fe9f9d)](https://www.codacy.com/gh/aquaticstudios/BetterJoin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aquaticstudios/BetterJoin&amp;utm_campaign=Badge_Grade)
+![Stars](https://img.shields.io/github/stars/aquaticstudios/BetterJoin)
+![Issues](https://img.shields.io/github/issues/aquaticstudios/BetterJoin)
 
 </div>
 
-This is a modern Minecraft plugin for your server, this plugin allows create multiples formats (Entry/Quit) to your liking, unique formats using the MiniMessage markdown, you can execute actions for the player to join, or enable/disable any group at the plugin configuration.
+BetterJoin is a modern Minecraft plugin for your server, this plugin allows create multiples formats (Entry/Quit) to your liking, unique formats using the MiniMessage markdown, you can execute actions for the player to join, or enable/disable any group at the plugin configuration.
 
 This plugin uses modern technologies as PaperMC API, MiniMessage and a more recent Java version for the project. With these technologies you can do more things that with another old plugins you can't.
 
