@@ -44,11 +44,11 @@ config:
 
         # Group Join Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        join: "<dark_gray>[Member] <gray><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: %vault_prefix%<br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></gray> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
+        join: "<dark_gray> [Member] <gray><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: %vault_prefix%<br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></gray> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
 
         # Group Quit Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        quit: "<dark_gray>[Member] <gray><player_name> <dark_gray><b>></b> <gray>He come out of the <yellow>Lobby!"
+        quit: "<dark_gray> [Member] <gray><player_name> <dark_gray><b>></b> <gray>He come out of the <yellow>Lobby!"
 
         # Group Join Actions.
         # You can add special colors for some actions.
@@ -57,8 +57,8 @@ config:
           - "[EFFECT] SPEED;1000000;2"
       admin:
         allow: true
-        join: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: %vault_prefix%<br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
-        quit: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><player_name> <dark_gray><b>></b> <gray>He came out of the <yellow>Lobby!"
+        join: "<gradient:red:dark_red> ♫ [♥ Admin]<gradient/> <white><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: %vault_prefix%<br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
+        quit: "<gradient:red:dark_red> ♫ [♥ Admin]<gradient/> <white><player_name> <dark_gray><b>></b> <gray>He came out of the <yellow>Lobby!"
         actions:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
           - "[EFFECT] SPEED;1000000;2"
