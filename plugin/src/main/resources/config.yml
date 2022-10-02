@@ -29,10 +29,10 @@ config:
       - ""
       - "<gradient:aqua:green>                   ServerName Network"
       - ""
-      - "<white>       Remember invite to your <green>Friends <white>>and <yellow>have fun!"
+      - "<white>       Remember invite to your <green>Friends <white>and <yellow>have fun!"
       - ""
       - "<gradient:yellow:gold>                Social Networks</gradient> <gray>(Do Click)"
-      - "<gradient:green:blue><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'store.com/yourserver'>         Store • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'yourserver.com'>Web • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'twitter.com/@Yourserver'>Twitter • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'discord.io/yourserver'>Discord</click></gradient>"
+      - "<gradient:green:blue><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'store.com/yourserver'>            Store • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'yourserver.com'>Web • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'twitter.com/@Yourserver'>Twitter • </click><hover:show_text:'<yellow>Click to get the link!'><click:open_url:'discord.io/yourserver'>Discord</click></gradient>"
       - ""
 
     # Join/Quit groups.
@@ -44,7 +44,7 @@ config:
 
         # Group Join Message.
         # You can add special colors as: Solids, Rainbow or Gradients
-        join: "<dark_gray>[Member] <gray><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: <yellow><player_group><br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
+        join: "<dark_gray>[Member] <gray><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: %vault_prefix%<br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></gray> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
 
         # Group Quit Message.
         # You can add special colors as: Solids, Rainbow or Gradients
@@ -57,13 +57,13 @@ config:
           - "[EFFECT] SPEED;1000000;2"
       admin:
         allow: true
-        join: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: <yellow><player_group><br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
+        join: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><hover:show_text:'<gray>Nick: <yellow><player_name><br><gray>Rank: %vault_prefix%<br><gray>Level: <yellow><player_level><br><br><green>[Click to send a message]'><click:suggest_command:'/msg <player_name>'><player_name></click></white> <dark_gray><b>></b> <gray>Entered the <yellow>Lobby!"
         quit: "<gradient:red:dark_red>&c ♫ [♥ Admin]<gradient/> <white><player_name> <dark_gray><b>></b> <gray>He came out of the <yellow>Lobby!"
         actions:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
           - "[EFFECT] SPEED;1000000;2"
-          - "[TITLE] <yellow>Welcome <gold><player_name>!;<gradient:blue:aqua>Powered by Aquatic Studios;20;60;20"
-          - "[ACTION_BAR] 0;<gradient:yellow:gold><player_name></gradient> <gray>- <gradient:aqua:green><player_group>"
+          - "[TITLE] <gradient:yellow:gold>Welcome <player_name>;<gradient:blue:aqua>Powered by Aquatic Studios;20;60;20"
+          - "[ACTION_BAR] 100;<gradient:yellow:gold><player_name></gradient> <gray>- <gradient:red:dark_red>&c ♫ [♥ Admin]"
 
 messages:
   no-permission: "<prefix> <gradient:red:dark_red>You don't have permissions to use that command!"
@@ -71,7 +71,7 @@ messages:
 
   help:
     - "<red>[BetterJoin] <dark_gray>| <gold>Available Commands:"
-    - "<gray> - <yellow><hover:show_text:'<br><yellow>[Click to execute the command]<br>'><click:run_command:'/bj help'>/betterjoin help</click></yellow> <white>Shows this message."
-    - "<gray> - <yellow><hover:show_text:'<br><yellow>[Click to execute the command]<br>'><click:run_command:'/bj config'>/betterjoin config</click></yellow> <white>Shows this message."
+    - "<gray> - <yellow><hover:show_text:'<yellow>[Click to execute the command]'><click:run_command:'/bj help'>/betterjoin help</click></yellow> <white>Shows this message."
+    - "<gray> - <yellow><hover:show_text:'<yellow>[Click to execute the command]'><click:run_command:'/bj config'>/betterjoin config</click></yellow> <white>Shows this message."
 
   reload: "<prefix> <gradient:green:dark_green>All Files Reloaded!</gradient> <white>The plugin files was reloaded successfully!"
