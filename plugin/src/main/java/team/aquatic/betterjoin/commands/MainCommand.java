@@ -42,13 +42,13 @@ public class MainCommand implements CommandExecutor {
 		if (args.length == 0) {
 			player.sendMessage(MiniMessage.miniMessage().deserialize(
 				 "<prefix> &f Running at &8(&b" + Bukkit.getBukkitVersion() + "&8)",
-				 Placeholder.parsed("<prefix>", this.prefix))
+				 Placeholder.parsed("prefix", this.prefix))
 			);
 			player.sendMessage(MiniMessage.miniMessage().deserialize(
 				 "<prefix> &f Developed by &b" + this.plugin
 						.author + " &8| &a" + this.plugin
 						.version,
-				 Placeholder.parsed("<prefix>", this.prefix))
+				 Placeholder.parsed("prefix", this.prefix))
 			);
 			return false;
 		}
