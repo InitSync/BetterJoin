@@ -86,7 +86,7 @@ public class Utils {
 	) {
 		Objects.requireNonNull(plugin, "JavaPlugin instance is null.");
 		Objects.requireNonNull(player, "Player is null.");
-		Validate.notEmpty(message, "The message to parse");
+		Validate.notEmpty(message, "The message to send is empty.");
 		
 		if (duration < 1) return;
 		
@@ -104,7 +104,7 @@ public class Utils {
 	
 	public static void showActionBar(@NotNull Player player, @NotNull String message) {
 		Objects.requireNonNull(player, "Player is null.");
-		Validate.notEmpty(message, "The message to parse");
+		Validate.notEmpty(message, "The message is empty.");
 		
 		player.sendActionBar(parse(player, message));
 	}
