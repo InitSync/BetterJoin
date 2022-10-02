@@ -78,7 +78,7 @@ public class Utils {
 	 * @param message The message to send.
 	 * @param duration The duration in ticks that the action bar will be displayed for.
 	 */
-	public static void showTempActionBar(
+	public static void showActionBar(
 		 @NotNull JavaPlugin plugin,
 		 @NotNull Player player,
 		 @NotNull String message,
@@ -100,12 +100,5 @@ public class Utils {
 				if (repeater - 40L < -20L) cancel();
 			}
 		}.runTaskTimerAsynchronously(plugin, 0L, 40L);
-	}
-	
-	public static void showActionBar(@NotNull Player player, @NotNull String message) {
-		Objects.requireNonNull(player, "Player is null.");
-		Validate.notEmpty(message, "The message is empty.");
-		
-		player.sendActionBar(parse(player, message));
 	}
 }
