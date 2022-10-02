@@ -70,7 +70,7 @@ tasks {
 		minimize()
 		
 		relocate("org.jetbrains.annotations", "$pluginLibsDirectory.jetbrains")
-		relocate("org.apache.lang", "$pluginLibsDirectory.apache")
+		relocate("org.apache.commons", "$pluginLibsDirectory.apache")
 	}
 	
 	withType<JavaCompile> {
