@@ -27,7 +27,6 @@ public class Utils {
 	 */
 	public static @NotNull Component parse(@NotNull Player player, @NotNull String text) {
 		Objects.requireNonNull(player, "Player is null.");
-		Validate.notEmpty(text, "The text to parse");
 		
 		if (papiIsAvailable) text = PlaceholderAPI.setPlaceholders(player, text);
 		
