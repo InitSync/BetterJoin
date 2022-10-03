@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import team.aquatic.betterjoin.BetterJoin;
 import team.aquatic.betterjoin.actions.ActionExecutable;
 import team.aquatic.betterjoin.enums.modules.actions.ActionType;
-import team.aquatic.betterjoin.utils.LogPrinter;
 import team.aquatic.betterjoin.utils.Utils;
 
 import java.util.Objects;
@@ -31,24 +30,12 @@ public class TitleActionType extends ActionExecutable {
 		
 		this.split = container.split(";");
 		
-		int fadeIn;
-		int stay;
-		int fadeOut;
-		try {
-			fadeIn = Integer.parseInt(this.split[2]);
-			stay = Integer.parseInt(this.split[3]);
-			fadeOut = Integer.parseInt(this.split[4]);
-		} catch (NumberFormatException exception) {
-			LogPrinter.error("Failed to parse the title action parameters.");
-			
-			exception.printStackTrace();
-			return;
-		}
-		
 		Utils.showTitle(
 			 player,
 			 this.split[0], this.split[1],
-			 fadeIn, stay, fadeOut
+			 Long.parseLong(this.split[2]),
+			 Long.parseLong(this.split[3]),
+			 Long.parseLong(this.split[4])
 		);
 	}
 }
