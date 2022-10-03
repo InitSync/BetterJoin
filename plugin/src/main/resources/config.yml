@@ -62,7 +62,7 @@ config:
         actions:
           - "[SOUND] ENTITY_EXPERIENCE_ORB_PICKUP;1;1"
           - "[EFFECT] SPEED;1000000;2"
-          - "[TITLE] <gradient:yellow:gold>Welcome <player_name>;<gradient:blue:aqua>Powered by Aquatic Studios;20;60;20"
+          - "[TITLE] <gradient:yellow:gold>Welcome <player_name>;<gradient:blue:aqua>Powered by Aquatic Studios;2;6;2"
           - "[ACTION_BAR] 100;<gradient:yellow:gold><player_name></gradient> <gray>- <gradient:red:dark_red>&c ♫ [♥ Admin]"
 
 messages:
