@@ -21,6 +21,8 @@ public class PlayerQuitListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		final Player player = event.getPlayer();
 		
+		player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
+		
 		if (this.plugin
 			 .groupManager()
 			 .isAllowedGroup(player.getUniqueId())
