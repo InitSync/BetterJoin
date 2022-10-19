@@ -1,4 +1,4 @@
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6d17e7869e6c474c986baaa342fe9f9d)](https://www.codacy.com/gh/aquaticstudios/BetterJoin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aquaticstudios/BetterJoin&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/99ef114a11c248efaef920c6b81fff7f)](https://www.codacy.com/gh/InitSync/BetterJoin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=InitSync/BetterJoin&amp;utm_campaign=Badge_Grade)
 ![Stars](https://img.shields.io/github/stars/aquaticstudios/BetterJoin)
 ![Issues](https://img.shields.io/github/issues/aquaticstudios/BetterJoin)
 
@@ -18,6 +18,7 @@ This plugin uses modern technologies as PaperMC API, MiniMessage and a more rece
 
   - PaperMC 1.19+
   - Java 17+
+  - LuckPerms
 
 ## ✅ | How to Compile
 • To compile the project, you may have Gradle and Java 8 or above installed.
