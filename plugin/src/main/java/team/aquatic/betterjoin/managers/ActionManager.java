@@ -11,6 +11,11 @@ import team.aquatic.betterjoin.enums.modules.actions.ActionType;
 
 import java.util.*;
 
+/**
+ * Code for ActionManager provided by DeluxeHub repository.
+ *
+ * https://github.com/ItsLewizzz/DeluxeHub/blob/master/src/main/java/fun/lewisdev/deluxehub/action/ActionManager.java
+ */
 public class ActionManager {
 	private final BetterJoin plugin;
 	private final Map<ActionType, ActionExecutable> actions;
